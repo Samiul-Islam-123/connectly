@@ -9,6 +9,7 @@ router.post('/login', login);
 router.post('/verify-otp', verifyOtp);
 router.post('/logout', logout);
 
+
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', 
