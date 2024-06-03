@@ -1,17 +1,18 @@
-const Post = require('../models/Post');
+const Post = require('../models/postModel');
 const mongoose = require('mongoose');
 
 // api for creating a new post
 const createPost = async (req, res) => {
   try {
     const { user, content, image } = req.body;
+    let userID = req.user.id;
 
-    if (!mongoose.Types.ObjectId.isValid(user)) {
+    if (!mongoose.Types.ObjectId.isValid(userID)) {
       return res.status(400).json({ message: 'Invalid user ID' });
     }
 
     const post = new Post({
-      user,
+      user : req.user.id,
       content,
       image
     });
