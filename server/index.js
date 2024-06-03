@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes'); // Ensure this path is correct
+const profileRoutes = require('./routes/profileRoutes')
 
 require('./config/passportConfig'); // Ensure this path is correct
 
@@ -32,7 +33,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Use auth routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes)
 
 // Basic route
 app.get('/', (req, res) => {
