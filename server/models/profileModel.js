@@ -1,5 +1,3 @@
-// models/profileModel.js
-
 const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
@@ -35,6 +33,18 @@ const ProfileSchema = new mongoose.Schema({
             type: String
         }
     },
+    friendRequestsSent: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    friendRequestsReceived: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     createdAt: {
         type: Date,
         default: Date.now
