@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes'); // Ensure this path is correc
 const profileRoutes = require('./routes/profileRoutes')
 const postRoutes = require('./routes/postRoutes')
 const requestRoutes = require('./routes/requestRoutes')
+const storyRoutes = require('./routes/storyRoutes')
 
 require('./config/passportConfig'); // Ensure this path is correct
 
@@ -39,6 +40,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/request', requestRoutes)
+app.use('/api/story', storyRoutes)
 
 
 // Basic route
