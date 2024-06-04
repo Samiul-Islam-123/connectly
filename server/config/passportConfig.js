@@ -3,14 +3,14 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/userModel");
 
 passport.use(
-  new GoogleStrategy.Strategy(
+  new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "http://localhost:5000/api/auth/google/callback",
       scope: ["profile", "email"],
     },
-    async (request, accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       try {
         let user = await User.findOne({ googleId: profile.id });
         if (user) {
@@ -39,11 +39,18 @@ passport.use(
     }
   )
 );
+
 passport.serializeUser((user, done) => {
-  return done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  return done(null, user);
+  done(null, user.id);
 });
 
-exports.passport = passport;
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
+
+module.exports = passport;

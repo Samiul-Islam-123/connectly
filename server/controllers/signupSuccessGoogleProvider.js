@@ -1,44 +1,49 @@
-import User from "../Models/User-model.js";
-import { createToken } from "../utils/token-manager.js";
+const User = require("../models/userModel");
+const { createToken } = require("../utils/token-manager");
 
-const signupSuccessGoogleProvider = async (req, res) => {
+exports.signupSuccessGoogleProvider = async (req, res) => {
   try {
-    const data = Object.values(req.sessionStore.sessions);
+    const sessions = req.sessionStore.sessions;
+    const sessionData = Object.values(sessions).map((session) =>
+      JSON.parse(session)
+    );
+    const passportSession = sessionData.find((session) => session.passport);
 
-    const parsedData = [];
-    for (let value of data) {
-      parsedData.push(JSON.parse(value));
+    if (!passportSession || !passportSession.passport.user) {
+      throw new Error("User authentication failed");
     }
-    const passportObject = parsedData.find((item) => item.passport);
 
-    const googleId = passportObject.passport?.user?.googleId;
+    const googleId = passportSession.passport.user;
 
-    if (req?.sessionStore?.sessions && googleId) {
+    try {
       const userData = await User.findOne({ googleId: googleId });
 
       if (userData) {
+        console.log(userData);
         const token = await createToken({
           email: userData.email,
-          name: userData.user.name,
+          name: userData.name,
           id: userData._id,
-          profileImage: userData.user.profileImage,
+          profileImage: userData.profileImage | "",
         });
+
         return res.status(200).json({
           token: token,
           message: "User Created Successfully",
           id: userData._id.toString(),
           name: userData.user.name,
-          email: userData.user.email,
+          email: userData.email,
           profileImage: userData.user.profileImage,
         });
       } else {
         throw new Error("User data not found");
       }
-    } else {
-      throw new Error("User authentication failed");
+    } catch (error) {
+      return res.status(500).json({
+        message: `Error finding user or creating token: ${error.message}`,
+      });
     }
   } catch (error) {
     return res.status(401).json({ message: error.message });
   }
 };
-export default signupSuccessGoogleProvider;

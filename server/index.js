@@ -1,12 +1,14 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const session = require('express-session');
-const authRoutes = require('./routes/authRoutes'); // Ensure this path is correct
-const profileRoutes = require('./routes/profileRoutes')
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const session = require("express-session");
+const authRoutes = require("./routes/authRoutes"); // Ensure this path is correct
+const profileRoutes = require("./routes/profileRoutes");
+const postRoutes = require("./routes/postRoutes");
+const requestRoutes = require("./routes/requestRoutes");
 
-require('./config/passportConfig'); // Ensure this path is correct
+require("./config/passportConfig"); // Ensure this path is correct
 
 const app = express();
 
@@ -15,30 +17,37 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Database connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Failed to connect to MongoDB:', err));
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
-// Middleware for session handling
-app.use(session({
-  secret: 'your-session-secret',
-  resave: false,
-  saveUninitialized: false,
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.set("view engine", "ejs");
+
 // Use auth routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/request", requestRoutes);
 
 // Basic route
-app.get('/', (req, res) => {
-  res.send('Home Page');
+app.get("/", (req, res) => {
+  res.send("Home Page");
 });
 
 // Start the server

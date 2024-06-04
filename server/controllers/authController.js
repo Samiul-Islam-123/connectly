@@ -142,6 +142,10 @@ exports.authenticate = (req, res, next) => {
   }
 };
 
+exports.loadAuth = (req, res) => {
+  res.render("auth");
+};
+
 // Logout
 exports.logout = (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
