@@ -9,15 +9,13 @@ const postRoutes = require("./routes/postRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const storyRoutes = require('./routes/storyRoutes')
 
-require("./config/passportConfig"); // Ensure this path is correct
+require("./config/passportConfig"); 
 
 const app = express();
 
-// Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -34,20 +32,19 @@ app.use(
   })
 );
 
-// Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.set("view engine", "ejs");
 
-// Use auth routes
+// auth routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes)
 app.use('/api/post', postRoutes)
 app.use('/api/request', requestRoutes)
 app.use('/api/story', storyRoutes)
 
-// Basic route
+// test route
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
