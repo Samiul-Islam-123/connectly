@@ -8,71 +8,71 @@ import { GoPlus } from "react-icons/go";
 const StoryCard = () => {
     return (
         <>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story} className='h-44' />
+                    <Image src={Story} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <GoPlus className='text-white' size={30} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm text-[#656565]'>Create Story</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs text-[#656565]'>Create Story</p>
             </div>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story2} className='h-44' />
+                    <Image src={Story2} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <Image src={profile2} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm font-medium'>Annette Black</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs font-medium'>Annette Black</p>
             </div>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story3} className='h-44' />
+                    <Image src={Story3} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <Image src={profile3} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm font-medium'>Cody Fisher</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs font-medium'>Cody Fisher</p>
             </div>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story4} className='h-44' />
+                    <Image src={Story4} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <Image src={profile4} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm font-medium'>Jane Cooper</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs font-medium'>Jane Cooper</p>
             </div>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story5} className='h-44' />
+                    <Image src={Story5} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <Image src={profile5} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm font-medium'>Jerome Bell</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs font-medium'>Jerome Bell</p>
             </div>
-            <div className='w-[9.5rem] h-[14rem] bg-white rounded-xl relative'>
+            <div className='w-[6.5rem] h-[10.5rem] flex flex-col bg-white rounded-xl relative'>
                 <div>
-                    <Image src={Story6} className='h-44' />
+                    <Image src={Story6} className='h-32' />
                 </div>
 
-                <div className='bg-[#FF578E] w-12 h-12 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
+                <div className='bg-[#FF578E] w-10 h-10 flex items-center justify-center rounded-full absolute left-1/2 top-[65%] -translate-x-[50%] border-2'>
                     <Image src={profile6} />
                 </div>
 
-                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-sm font-medium'>Darrell Steward</p>
+                <p className='absolute left-1/2 top-[88%] -translate-x-[50%] w-full text-center text-xs font-medium'>Darrell Steward</p>
             </div>
         </>
     )
