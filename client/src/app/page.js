@@ -1,27 +1,36 @@
 import "./globals.css";
-import { Navbar, Post, SideBar, StoryCard, CreatePost } from "../components";
+import {
+  Navbar,
+  Post,
+  SideBar,
+  StoryCard,
+  CreatePost,
+  RightNav,
+  Footer,
+} from "../components";
 
 export default function Home() {
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="angry-grid bg-[#EDEDED] text-black">
-        <div id="item-0">
-          <div className="p-5 flex items-center gap-5 justify-end">
-            <StoryCard />
-          </div>
+
+      <div className="grid-container relative">
+        <div className="p-5 flex items-center gap-5 justify-center story-card">
+          <StoryCard />
         </div>
-        <div id="item-1">
+        <div className="sidebar-left">
           <SideBar />
         </div>
-        <div id="item-2" className="relative top-48 left-16">
-          <div className="flex items-center justify-center flex-col gap-5 ">
+        <div className="sidebar-right p-5">
+          <RightNav />
+        </div>
+        <div className="feed-section">
+          <div className="flex items-center justify-center flex-col ">
             <CreatePost />
             <Post />
           </div>
         </div>
       </div>
-
+      <Footer />
     </>
   );
 }
