@@ -1,14 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const friendRequestController = require('../controllers/requestController');
+const friendRequestController = require("../controllers/requestController");
 
 // Send a friend request
-router.post('/send', friendRequestController.sendFriendRequest);
+router.post("/send", friendRequestController.sendFriendRequest);
 
+// Cancel a friend request
+router.post("/cancel", friendRequestController.cancelFriendRequest);
 // Accept a friend request
-router.post('/accept', friendRequestController.acceptFriendRequest);
+router.post("/accept", friendRequestController.acceptFriendRequest);
 
 // Reject a friend request
-router.post('/reject', friendRequestController.rejectFriendRequest);
+router.post("/reject", friendRequestController.rejectFriendRequest);
 
 module.exports = router;
