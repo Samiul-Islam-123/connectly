@@ -1,0 +1,21 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+.navbar {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sidebar {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.create-post {
+  grid-column: 2;
+  grid-row: 2;
+}

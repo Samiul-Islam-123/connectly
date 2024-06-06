@@ -20,7 +20,7 @@ export default function Home() {
         <div className="sidebar-left">
           <SideBar />
         </div>
-        <div className="sidebar-right p-5">
+        <div className="sidebar-right p-5 fixed top-0 right-0">
           <RightNav />
         </div>
         <div className="feed-section">
