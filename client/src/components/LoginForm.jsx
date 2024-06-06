@@ -1,13 +1,46 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import axios from "axios";
 
 const LoginForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const apiURL = process.env.NEXT_PUBLIC_API_URL;
+  
+    const requestData = {
+      email: emailValue,
+      password: passwordValue
+    };
+  
+    console.log("Request Data:", requestData);
+  
+    try {
+      const response = await fetch(`${apiURL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
+      
+      const responseData = await response.json();
+  
+      console.log(responseData);
+      alert(responseData.message);
+      if(responseData.requiresVerification){
+        if(responseData.requiresVerification === true){
+          alert("We will be navigating to OTP verification page")
+        }
+      }
+    } catch (error) {
+      console.error("Error response:", error);
+      //alert(`Error: ${error.message}`);
+    }
   };
+  
   return (
     <div className="selection:bg-primary-500 selection:text-white">
       <div className="flex justify-center items-center">
