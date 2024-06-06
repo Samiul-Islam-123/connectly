@@ -3,6 +3,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
+const authRoutes = require("./routes/authRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const postRoutes = require("./routes/postRoutes");
+const requestRoutes = require("./routes/requestRoutes");
+const storyRoutes = require("./routes/storyRoutes");
+const vcRoutes = require("./routes/vcRoutes");
+
+require("./config/passportConfig");
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const session = require("express-session");
 const authRoutes = require("./routes/authRoutes"); // Ensure this path is correct
 const profileRoutes = require("./routes/profileRoutes");
 const postRoutes = require("./routes/postRoutes");
@@ -13,11 +26,9 @@ require("./config/passportConfig"); // Ensure this path is correct
 
 const app = express();
 
-// Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -34,13 +45,17 @@ app.use(
   })
 );
 
-// Initialize Passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.set("view engine", "ejs");
 
 // Use auth routes
+app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/request", requestRoutes);
+app.use("/api/story", storyRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes)
 app.use('/api/post', postRoutes)
