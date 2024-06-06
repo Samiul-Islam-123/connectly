@@ -8,14 +8,19 @@ const profileRoutes = require("./routes/profileRoutes");
 const postRoutes = require("./routes/postRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const storyRoutes = require("./routes/storyRoutes");
-const vcRoutes = require("./routes/vcRoutes");
+const cors = require('cors');
 
 require("./config/passportConfig");
+require("dotenv").config();
+const vcRoutes = require("./routes/vcRoutes");
+
+require("./config/passportConfig"); // Ensure this path is correct
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -46,13 +51,14 @@ app.use("/api/request", requestRoutes);
 app.use("/api/story", storyRoutes);
 app.use("/api/vc", vcRoutes);
 
-// test route
+
+// Basic route
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`Server is up and running at on http://localhost:${PORT}`);
 });
