@@ -2,11 +2,20 @@
 import PendingRequest from "@/components/PendingRequest";
 import ProfileSideBar from "@/components/ProfileSideBar";
 import SentRequest from "@/components/SentRequest";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 const Profile = () => {
   const [request, setRequest] = useState(false);
   const [activeTab, setActiveTab] = useState();
+
+  async function fetchProfileData(){
+    console.log("Fetching profileData...")
+  }
+
+  useEffect(()=>{
+    fetchProfileData();
+  },[])
+
   useLayoutEffect(() => {
     setActiveTab(request ? "pendingRequests" : "followers");
   }, [request]);
