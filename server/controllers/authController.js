@@ -43,12 +43,12 @@ exports.register = async (req, res, next) => {
     const message = `Dear ${name},\n\nWelcome to Connectly! Please verify your email address using the following OTP:\n\n${otp}\n\nThis OTP is valid for 10 minutes.\n\nThank you,\nTeam Connectly`;
 
     await sendEmail(email, subject, message);
-
     res
       .status(201)
       .json({ message: "OTP sent to your email. Please verify your account." });
   } catch (err) {
-    console.error(err.message);
+    console.log("Error");
+    console.error(err);
     res.status(500).send("Server error");
   }
 };
@@ -73,7 +73,9 @@ exports.login = async (req, res, next) => {
     if (!user.isVerified) {
       return res
         .status(400)
-        .json({ message: "Please verify your email first" });
+        .json({ message: "Please verify your email first",
+          requiresVerification : true
+         });
     }
 
     const payload = {
