@@ -79,15 +79,17 @@ exports.login = async (req, res, next) => {
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
       },
     };
-
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
       { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
+        res.header("x-auth-token", token);
         res.json({ token });
       }
     );
