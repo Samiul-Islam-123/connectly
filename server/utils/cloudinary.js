@@ -1,4 +1,5 @@
 const { cloudinary } = require("../config/cloudinary.config");
+const fs = require("fs");
 
 exports.uploadToCloudinary = async (localFilePath) => {
   try {

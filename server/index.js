@@ -49,6 +49,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/story", storyRoutes);
+app.use("/api/vc", vcRoutes);
 
 
 // Basic route
