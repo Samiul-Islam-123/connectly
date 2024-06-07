@@ -4,10 +4,17 @@ const {
   uploadToCloudinary,
   deleteFromCloudinary,
 } = require("../utils/cloudinary");
+const {
+  createLikeNotification,
+  createCommentNotification,
+  deleteLikeNotification,
+  deleteCommentNotification,
+} = require("../utils/notifications");
+const getProfileByUserId = require("../utils/getProfileByUser");
 
 const createPost = async (req, res) => {
   try {
-    const { user, content } = req.body;
+    const { content } = req.body;
     const imageLocalPath = req?.files?.image?.[0]?.path;
     let image;
 
@@ -85,12 +92,9 @@ const updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Delete existing image from Cloudinary if a new one is provided
     if (imageLocalPath && post.image) {
       await deleteFromCloudinary(post.image);
     }
-
-    // Upload new image to Cloudinary
     let image;
     if (imageLocalPath) {
       const cloudinaryResponse = await uploadToCloudinary(imageLocalPath);
@@ -99,7 +103,6 @@ const updatePost = async (req, res) => {
       }
     }
 
-    // Update the post fields
     post.content = content;
     if (image) post.image = image;
     post.updatedAt = Date.now();
@@ -137,10 +140,12 @@ const deletePost = async (req, res) => {
   }
 };
 
+// Like a post
 const likePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const userID = req.user.id;
+    const { link } = req.body;
+    const userId = req.user.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid post ID" });
@@ -151,23 +156,28 @@ const likePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    if (post.likes.includes(userID)) {
-      return res.status(400).json({ message: "You already liked this post" });
+    if (post.likes.includes(userId)) {
+      return res.status(400).json({ message: "Post already liked" });
     }
 
-    post.likes.push(userID);
+    post.likes.push(userId);
     await post.save();
 
-    return res.status(200).json({ message: "Post liked successfully", post });
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user.id);
+    await createLikeNotification(post, link, userProfile);
+
+    return res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: "Error liking post", error });
   }
 };
 
+// Unlike a post
 const unlikePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const userID = req.user.id;
+    const userId = req.user.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid post ID" });
@@ -178,24 +188,30 @@ const unlikePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    if (!post.likes.includes(userID)) {
-      return res.status(400).json({ message: "You have not liked this post" });
+    const likeIndex = post.likes.indexOf(userId);
+    if (likeIndex === -1) {
+      return res.status(400).json({ message: "Post not liked yet" });
     }
 
-    post.likes.pull(userID);
+    post.likes.splice(likeIndex, 1);
     await post.save();
 
-    return res.status(200).json({ message: "Post unliked successfully", post });
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user.id);
+    await deleteLikeNotification(post, userProfile);
+
+    return res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: "Error unliking post", error });
   }
 };
 
+// Add a comment to a post
 const addComment = async (req, res) => {
   try {
     const { id } = req.params;
-    const { text } = req.body;
-    const userID = req.user.id;
+    const { text, link } = req.body; // link is simply the frontend link to that post
+    const userId = req.user.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid post ID" });
@@ -206,23 +222,36 @@ const addComment = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    const comment = { user: userID, text };
+    const comment = {
+      user: userId,
+      text,
+    };
+
     post.comments.push(comment);
     await post.save();
 
-    return res.status(201).json({ message: "Comment added successfully", post });
+    // Create a notification
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user.id);
+    await createCommentNotification(post, comment, link, userProfile);
+
+    return res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: "Error adding comment", error });
   }
 };
 
+// Delete a comment from a post
 const deleteComment = async (req, res) => {
   try {
     const { postId, commentId } = req.params;
-    const userID = req.user.id;
+    const userId = req.user.id;
 
-    if (!mongoose.Types.ObjectId.isValid(postId) || !mongoose.Types.ObjectId.isValid(commentId)) {
-      return res.status(400).json({ message: "Invalid post or comment ID" });
+    if (
+      !mongoose.Types.ObjectId.isValid(postId) ||
+      !mongoose.Types.ObjectId.isValid(commentId)
+    ) {
+      return res.status(400).json({ message: "Invalid post ID or comment ID" });
     }
 
     const post = await Post.findById(postId);
@@ -230,19 +259,22 @@ const deleteComment = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    const comment = post.comments.id(commentId);
-    if (!comment) {
-      return res.status(404).json({ message: "Comment not found" });
+    const commentIndex = post.comments.findIndex(
+      (comment) =>
+        comment.id === commentId && comment.user.toString() === userId
+    );
+    if (commentIndex === -1) {
+      return res
+        .status(404)
+        .json({ message: "Comment not found or user not authorized" });
     }
 
-    if (comment.user.toString() !== userID) {
-      return res.status(403).json({ message: "You are not authorized to delete this comment" });
-    }
-
-    comment.remove();
+    const [deletedComment] = post.comments.splice(commentIndex, 1);
     await post.save();
 
-    return res.status(200).json({ message: "Comment deleted successfully", post });
+    await deleteCommentNotification(post, deletedComment);
+
+    return res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: "Error deleting comment", error });
   }
