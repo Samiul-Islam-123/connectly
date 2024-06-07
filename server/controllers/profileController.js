@@ -51,6 +51,7 @@ exports.createProfile = async (req, res) => {
 
 // Read Current User Profile
 exports.getCurrentProfile = async (req, res) => {
+  console.log("Executing this route")
   try {
     const profile = await Profile.findOne({ user: req.user.id })
       .populate("user", ["name", "email"])

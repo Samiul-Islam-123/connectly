@@ -1,7 +1,36 @@
+import Cookies from "js-cookie";
 import React from "react";
 import { FaClock } from "react-icons/fa";
 
 const SentRequest = (props) => {
+
+  async function getProfileDetails() {
+    const token = Cookies.get('token'); // Replace with the actual token
+  
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/api/profileDetails', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+  
+      const profileDetails = await response.json();
+      console.log('Profile Details:', profileDetails);
+    } catch (error) {
+      console.error('Error fetching profile details:', error);
+    }
+  }
+  
+  // Call the function to fetch profile details
+  getProfileDetails();
+  
+
   return (
     <>
       {

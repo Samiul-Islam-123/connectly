@@ -17,7 +17,7 @@ const Profile = () => {
     const response = await fetch(`${apiURL}/api/profile/me`,{
       method : 'GET',
       headers : {
-        'Content-Type' : 'applicarion/json',
+        'Content-Type' : 'application/json',
         'x-auth-token' : `${token}`
       }
     })
