@@ -137,10 +137,125 @@ const deletePost = async (req, res) => {
   }
 };
 
+const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userID = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    if (post.likes.includes(userID)) {
+      return res.status(400).json({ message: "You already liked this post" });
+    }
+
+    post.likes.push(userID);
+    await post.save();
+
+    return res.status(200).json({ message: "Post liked successfully", post });
+  } catch (error) {
+    return res.status(500).json({ message: "Error liking post", error });
+  }
+};
+
+const unlikePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userID = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    if (!post.likes.includes(userID)) {
+      return res.status(400).json({ message: "You have not liked this post" });
+    }
+
+    post.likes.pull(userID);
+    await post.save();
+
+    return res.status(200).json({ message: "Post unliked successfully", post });
+  } catch (error) {
+    return res.status(500).json({ message: "Error unliking post", error });
+  }
+};
+
+const addComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text } = req.body;
+    const userID = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const comment = { user: userID, text };
+    post.comments.push(comment);
+    await post.save();
+
+    return res.status(201).json({ message: "Comment added successfully", post });
+  } catch (error) {
+    return res.status(500).json({ message: "Error adding comment", error });
+  }
+};
+
+const deleteComment = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const userID = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(postId) || !mongoose.Types.ObjectId.isValid(commentId)) {
+      return res.status(400).json({ message: "Invalid post or comment ID" });
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const comment = post.comments.id(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (comment.user.toString() !== userID) {
+      return res.status(403).json({ message: "You are not authorized to delete this comment" });
+    }
+
+    comment.remove();
+    await post.save();
+
+    return res.status(200).json({ message: "Comment deleted successfully", post });
+  } catch (error) {
+    return res.status(500).json({ message: "Error deleting comment", error });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  likePost,
+  unlikePost,
+  addComment,
+  deleteComment,
 };

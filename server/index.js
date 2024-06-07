@@ -90,6 +90,31 @@ app.get("/", (req, res) => {
   res.send("Home Page");
 });
 
+//get profile Data from user ID
+app.get('/api/profileDetails', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(400).json({ message: "Please provide a valid token" });
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    const profileDetails = await profileModel.findOne({ user: token });
+
+    if (!profileDetails) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    return res.status(200).json(profileDetails);
+  } catch (error) {
+    console.error("Error fetching profile details:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 5500;
 server.listen(PORT, () => {
