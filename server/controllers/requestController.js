@@ -1,6 +1,5 @@
 const Profile = require("../models/profileModel");
 
-// Send a friend request
 const sendFriendRequest = async (req, res) => {
   try {
     const { senderId, receiverId } = req.body;
@@ -13,29 +12,26 @@ const sendFriendRequest = async (req, res) => {
     }
 
     if (
-      senderProfile.friends.includes(receiverId) ||
-      senderProfile.friendRequestsSent.includes(receiverId)
+      senderProfile.friends.includes(receiverProfile._id) ||
+      senderProfile.friendRequestsSent.includes(receiverProfile._id)
     ) {
       return res.status(400).json({
         message: "Friend request already sent or user is already a friend",
       });
     }
 
-    senderProfile.friendRequestsSent.push(receiverId);
-    receiverProfile.friendRequestsReceived.push(senderId);
+    senderProfile.friendRequestsSent.push(receiverProfile._id);
+    receiverProfile.friendRequestsReceived.push(senderProfile._id);
 
     await senderProfile.save();
     await receiverProfile.save();
 
-    return res
-      .status(200)
-      .json({ message: "Friend request sent successfully" });
+    return res.status(200).json({ message: "Friend request sent successfully" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error sending friend request", error });
+    return res.status(500).json({ message: "Error sending friend request", error });
   }
 };
+
 
 const cancelFriendRequest = async (req, res) => {
   try {
@@ -48,104 +44,145 @@ const cancelFriendRequest = async (req, res) => {
       return res.status(404).json({ message: "User profile not found" });
     }
 
-    if (!senderProfile.friendRequestsSent.includes(receiverId)) {
-      return res
-        .status(400)
-        .json({ message: "No friend request sent to this user" });
+    if (!senderProfile.friendRequestsSent.includes(receiverProfile._id)) {
+      return res.status(400).json({ message: "No friend request sent to this user" });
     }
-    senderProfile.friendRequestsSent.pull(receiverId);
-    receiverProfile.friendRequestsReceived.pull(senderId);
+
+    senderProfile.friendRequestsSent.pull(receiverProfile._id);
+    receiverProfile.friendRequestsReceived.pull(senderProfile._id);
 
     await senderProfile.save();
     await receiverProfile.save();
 
-    return res
-      .status(200)
-      .json({ message: "Friend request deleted successfully" });
+    return res.status(200).json({ message: "Friend request cancelled successfully" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error cancelling friend request", error });
+    return res.status(500).json({ message: "Error cancelling friend request", error });
   }
 };
 
-// Accept a friend request
+
 const acceptFriendRequest = async (req, res) => {
   try {
     const { userId, requestId } = req.body;
 
-    const user = await Profile.findOne({ user: userId });
-    const requestSender = await Profile.findOne({ user: requestId });
+    const userProfile = await Profile.findOne({ user: userId });
+    const requestSenderProfile = await Profile.findOne({ user: requestId });
 
-    if (!user || !requestSender) {
+    if (!userProfile || !requestSenderProfile) {
       return res.status(404).json({ message: "User profile not found" });
     }
 
-    if (!user.friendRequestsReceived.includes(requestId)) {
-      return res
-        .status(400)
-        .json({ message: "No friend request from this user" });
+    if (!userProfile.friendRequestsReceived.includes(requestSenderProfile._id)) {
+      return res.status(400).json({ message: "No friend request from this user" });
     }
 
-    user.friends.push(requestId);
-    requestSender.friends.push(userId);
+    userProfile.friends.push(requestSenderProfile._id);
+    requestSenderProfile.friends.push(userProfile._id);
 
-    user.friendRequestsReceived = user.friendRequestsReceived.filter(
-      (id) => id.toString() !== requestId.toString()
-    );
-    requestSender.friendRequestsSent = requestSender.friendRequestsSent.filter(
-      (id) => id.toString() !== userId.toString()
-    );
+    userProfile.friendRequestsReceived.pull(requestSenderProfile._id);
+    requestSenderProfile.friendRequestsSent.pull(userProfile._id);
 
-    await user.save();
-    await requestSender.save();
+    await userProfile.save();
+    await requestSenderProfile.save();
 
-    return res
-      .status(200)
-      .json({ message: "Friend request accepted successfully" });
+    return res.status(200).json({ message: "Friend request accepted successfully" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error accepting friend request", error });
+    return res.status(500).json({ message: "Error accepting friend request", error });
   }
 };
 
-// Reject a friend request
+
 const rejectFriendRequest = async (req, res) => {
   try {
     const { userId, requestId } = req.body;
 
-    const user = await Profile.findOne({ user: userId });
+    const userProfile = await Profile.findOne({ user: userId });
 
-    if (!user) {
+    if (!userProfile) {
       return res.status(404).json({ message: "User profile not found" });
     }
 
-    if (!user.friendRequestsReceived.includes(requestId)) {
-      return res
-        .status(400)
-        .json({ message: "No friend request from this user" });
+    if (!userProfile.friendRequestsReceived.includes(requestId)) {
+      return res.status(400).json({ message: "No friend request from this user" });
     }
 
-    user.friendRequestsReceived = user.friendRequestsReceived.filter(
-      (id) => id.toString() !== requestId.toString()
-    );
+    userProfile.friendRequestsReceived.pull(requestId);
 
-    await user.save();
+    await userProfile.save();
 
-    return res
-      .status(200)
-      .json({ message: "Friend request rejected successfully" });
+    return res.status(200).json({ message: "Friend request rejected successfully" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error rejecting friend request", error });
+    return res.status(500).json({ message: "Error rejecting friend request", error });
   }
 };
+
+
+const followUser = async (req, res) => {
+  try {
+    const { followerId, followingId } = req.body;
+
+    const followerProfile = await Profile.findOne({ user: followerId });
+    const followingProfile = await Profile.findOne({ user: followingId });
+
+    if (!followerProfile || !followingProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    if (
+      followerProfile.following.includes(followingProfile._id) ||
+      followingProfile.followers.includes(followerProfile._id)
+    ) {
+      return res.status(400).json({
+        message: "Already following this user",
+      });
+    }
+
+    followerProfile.following.push(followingProfile._id);
+    followingProfile.followers.push(followerProfile._id);
+
+    await followerProfile.save();
+    await followingProfile.save();
+
+    return res.status(200).json({ message: "User followed successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Error following user", error });
+  }
+};
+
+const unfollowUser = async (req, res) => {
+  try {
+    const { followerId, followingId } = req.body;
+
+    const followerProfile = await Profile.findOne({ user: followerId });
+    const followingProfile = await Profile.findOne({ user: followingId });
+
+    if (!followerProfile || !followingProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    if (!followerProfile.following.includes(followingProfile._id)) {
+      return res.status(400).json({ message: "You are not following this user" });
+    }
+
+    followerProfile.following.pull(followingProfile._id);
+    followingProfile.followers.pull(followerProfile._id);
+
+    await followerProfile.save();
+    await followingProfile.save();
+
+    return res.status(200).json({ message: "User unfollowed successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Error unfollowing user", error });
+  }
+};
+
+
 
 module.exports = {
   sendFriendRequest,
   cancelFriendRequest,
   acceptFriendRequest,
   rejectFriendRequest,
+  followUser,
+  unfollowUser
 };

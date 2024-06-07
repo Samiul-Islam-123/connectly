@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 const LoginForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
@@ -29,7 +29,13 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
       const responseData = await response.json();
   
       console.log(responseData);
-      alert(responseData.message);
+      if(responseData.token){
+        //save into cookies
+        Cookies.set("token", responseData.token, {
+          expires : 29 // expires in 29 days
+        })
+      }
+      
       if(responseData.requiresVerification){
         if(responseData.requiresVerification === true){
           alert("We will be navigating to OTP verification page")
