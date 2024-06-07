@@ -9,9 +9,10 @@ const postRoutes = require("./routes/postRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const storyRoutes = require("./routes/storyRoutes");
 const vcRoutes = require("./routes/vcRoutes");
-const cors = require('cors');
-const http = require('http');
-const { Server } = require('socket.io');
+const NotficationRoutes = require("./routes/notificationRoutes");
+const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
 
 require("./config/passportConfig");
 
@@ -19,9 +20,9 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", 
-    methods: ["GET", "POST"]
-  }
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
 app.use(express.json());
@@ -56,32 +57,33 @@ app.use("/api/post", postRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/story", storyRoutes);
 app.use("/api/vc", vcRoutes);
+app.use("/api/notifications", NotficationRoutes);
 
 // Socket.IO connection handler
-io.on('connection', (socket) => {
-  console.log('a user connected: ' + socket.id);
+io.on("connection", (socket) => {
+  console.log("a user connected: " + socket.id);
 
   // Handle joining a chat room
-  socket.on('joinRoom', (room) => {
+  socket.on("joinRoom", (room) => {
     socket.join(room);
     console.log(`User ${socket.id} joined room ${room}`);
   });
 
   // Handle leaving a chat room
-  socket.on('leaveRoom', (room) => {
+  socket.on("leaveRoom", (room) => {
     socket.leave(room);
     console.log(`User ${socket.id} left room ${room}`);
   });
 
   // Handle sending a message
-  socket.on('chatMessage', (msg) => {
-    io.to(msg.room).emit('chatMessage', msg);
+  socket.on("chatMessage", (msg) => {
+    io.to(msg.room).emit("chatMessage", msg);
     console.log(`Message: ${msg.text} from ${msg.sender} in room ${msg.room}`);
   });
 
   // Handle disconnect
-  socket.on('disconnect', () => {
-    console.log('user disconnected: ' + socket.id);
+  socket.on("disconnect", () => {
+    console.log("user disconnected: " + socket.id);
   });
 });
 
