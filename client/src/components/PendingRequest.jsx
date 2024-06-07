@@ -1,6 +1,6 @@
 import React from "react";
 
-const PendingRequest = () => {
+const PendingRequest = (props) => {
   return (
     <div className="flex items-center justify-between p-5 text-black">
       <div className="flex items-center gap-2">

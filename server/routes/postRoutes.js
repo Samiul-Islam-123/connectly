@@ -20,4 +20,12 @@ router.put(
 );
 router.delete("/:id", authController.authenticate, postController.deletePost);
 
+// Like and Unlike Post
+router.post("/:id/like", authController.authenticate, postController.likePost);
+router.post("/:id/unlike", authController.authenticate, postController.unlikePost);
+
+// Add and Delete Comment
+router.post("/:id/comments", authController.authenticate, postController.addComment);
+router.delete("/:postId/comments/:commentId", authController.authenticate, postController.deleteComment);
+
 module.exports = router;

@@ -52,10 +52,13 @@ exports.createProfile = async (req, res) => {
 // Read Current User Profile
 exports.getCurrentProfile = async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
-      "user",
-      ["name", "email"]
-    );
+    const profile = await Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "email"])
+      .populate("friendRequestsSent", ["name", "email", "profilePicture"])
+      .populate("friendRequestsReceived", ["name", "email", "profilePicture"])
+      .populate("friends", ["name", "email", "profilePicture"])
+      .populate("followers", ["name", "email", "profilePicture"])
+      .populate("following", ["name", "email", "profilePicture"]);
 
     if (!profile) {
       return res
@@ -63,12 +66,13 @@ exports.getCurrentProfile = async (req, res) => {
         .json({ message: "There is no profile for this user" });
     }
 
-    res.json(profile);
+    res.status(200).json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
   }
 };
+
 
 // Read User Profile by User ID
 exports.getProfileById = async (req, res) => {
