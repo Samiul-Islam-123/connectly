@@ -4,10 +4,15 @@ const {
   uploadToCloudinary,
   deleteFromCloudinary,
 } = require("../utils/cloudinary");
+const {
+  createLikeNotification,
+  createCommentNotification,
+} = require("../utils/notifications");
+const getProfileByUserId = require("../utils/getProfileByUser");
 
 const createPost = async (req, res) => {
   try {
-    const { user, content } = req.body;
+    const { content } = req.body;
     const imageLocalPath = req?.files?.image?.[0]?.path;
     let image;
 
@@ -85,12 +90,9 @@ const updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Delete existing image from Cloudinary if a new one is provided
     if (imageLocalPath && post.image) {
       await deleteFromCloudinary(post.image);
     }
-
-    // Upload new image to Cloudinary
     let image;
     if (imageLocalPath) {
       const cloudinaryResponse = await uploadToCloudinary(imageLocalPath);
@@ -99,7 +101,6 @@ const updatePost = async (req, res) => {
       }
     }
 
-    // Update the post fields
     post.content = content;
     if (image) post.image = image;
     post.updatedAt = Date.now();
@@ -137,10 +138,148 @@ const deletePost = async (req, res) => {
   }
 };
 
+// Like a post
+const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { link } = req.body;
+    const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    if (post.likes.includes(userId)) {
+      return res.status(400).json({ message: "Post already liked" });
+    }
+
+    post.likes.push(userId);
+    await post.save();
+
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user._id);
+    await createLikeNotification(post, link, userProfile);
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: "Error liking post", error });
+  }
+};
+
+// Unlike a post
+const unlikePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const likeIndex = post.likes.indexOf(userId);
+    if (likeIndex === -1) {
+      return res.status(400).json({ message: "Post not liked yet" });
+    }
+
+    post.likes.splice(likeIndex, 1);
+    await post.save();
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: "Error unliking post", error });
+  }
+};
+
+// Add a comment to a post
+const addComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text, link } = req.body; // link is simply the frontend link to that post
+    const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const comment = {
+      user: userId,
+      text,
+    };
+
+    post.comments.push(comment);
+    await post.save();
+
+    // Create a notification
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user._id);
+    await createCommentNotification(post, comment, link, userProfile);
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: "Error adding comment", error });
+  }
+};
+
+// Delete a comment from a post
+const deleteComment = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const userId = req.user.id;
+
+    if (
+      !mongoose.Types.ObjectId.isValid(postId) ||
+      !mongoose.Types.ObjectId.isValid(commentId)
+    ) {
+      return res.status(400).json({ message: "Invalid post ID or comment ID" });
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const commentIndex = post.comments.findIndex(
+      (comment) =>
+        comment.id === commentId && comment.user.toString() === userId
+    );
+    if (commentIndex === -1) {
+      return res
+        .status(404)
+        .json({ message: "Comment not found or user not authorized" });
+    }
+
+    post.comments.splice(commentIndex, 1);
+    await post.save();
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: "Error deleting comment", error });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  likePost,
+  unlikePost,
+  addComment,
+  deleteComment,
 };
