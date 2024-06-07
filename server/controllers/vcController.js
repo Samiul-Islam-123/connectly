@@ -3,10 +3,7 @@ const { Call, CallParticipant, CallInvitation } = require("../models/vc.model");
 const Profile = require("../models/profileModel");
 const User = require("../models/userModel");
 const sendEmail = require("../utils/sendEmail");
-
-const getProfileByUserId = async (userId) => {
-  return await Profile.findOne({ user: userId });
-};
+const getProfileByUserId = require("../utils/getProfileByUser");
 
 const createCall = async (req, res) => {
   try {
