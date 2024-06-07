@@ -7,6 +7,8 @@ const {
 const {
   createLikeNotification,
   createCommentNotification,
+  deleteLikeNotification,
+  deleteCommentNotification,
 } = require("../utils/notifications");
 const getProfileByUserId = require("../utils/getProfileByUser");
 
@@ -162,7 +164,7 @@ const likePost = async (req, res) => {
     await post.save();
 
     const user = req.user;
-    const userProfile = await getProfileByUserId(user._id);
+    const userProfile = await getProfileByUserId(user.id);
     await createLikeNotification(post, link, userProfile);
 
     return res.status(200).json(post);
@@ -193,6 +195,10 @@ const unlikePost = async (req, res) => {
 
     post.likes.splice(likeIndex, 1);
     await post.save();
+
+    const user = req.user;
+    const userProfile = await getProfileByUserId(user.id);
+    await deleteLikeNotification(post, userProfile);
 
     return res.status(200).json(post);
   } catch (error) {
@@ -226,7 +232,7 @@ const addComment = async (req, res) => {
 
     // Create a notification
     const user = req.user;
-    const userProfile = await getProfileByUserId(user._id);
+    const userProfile = await getProfileByUserId(user.id);
     await createCommentNotification(post, comment, link, userProfile);
 
     return res.status(200).json(post);
@@ -263,8 +269,10 @@ const deleteComment = async (req, res) => {
         .json({ message: "Comment not found or user not authorized" });
     }
 
-    post.comments.splice(commentIndex, 1);
+    const [deletedComment] = post.comments.splice(commentIndex, 1);
     await post.save();
+
+    await deleteCommentNotification(post, deletedComment);
 
     return res.status(200).json(post);
   } catch (error) {

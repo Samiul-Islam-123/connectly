@@ -2,7 +2,7 @@ const Notification = require("../models/notificationModel");
 
 const fetchAllNotifications = async (req, res) => {
   try {
-    const notifications = await Notification.find({ user: req.user._id })
+    const notifications = await Notification.find({ user: req.user.id })
       .sort({ createdAt: -1 })
       .limit(20);
     res.status(200).json(notifications);
@@ -19,7 +19,7 @@ const readNotification = async (req, res) => {
     if (!notification) {
       return res.status(404).json({ message: "Notification not found" });
     }
-    notification.read = true;
+    notification.isRead = true;
     await notification.save();
     res.status(200).json(notification);
   } catch (e) {
