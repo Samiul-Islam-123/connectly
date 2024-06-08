@@ -10,6 +10,7 @@ const requestRoutes = require("./routes/requestRoutes");
 const storyRoutes = require("./routes/storyRoutes");
 const vcRoutes = require("./routes/vcRoutes");
 const NotficationRoutes = require("./routes/notificationRoutes");
+const preferencesRoutes = require("./routes/preferencesRoutes");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -58,6 +59,7 @@ app.use("/api/request", requestRoutes);
 app.use("/api/story", storyRoutes);
 app.use("/api/vc", vcRoutes);
 app.use("/api/notifications", NotficationRoutes);
+app.use("/api/preferences", preferencesRoutes);
 
 // Socket.IO connection handler
 io.on("connection", (socket) => {
@@ -93,15 +95,15 @@ app.get("/", (req, res) => {
 });
 
 //get profile Data from user ID
-app.get('/api/profileDetails', async (req, res) => {
+app.get("/api/profileDetails", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(400).json({ message: "Please provide a valid token" });
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(" ")[1];
 
     const profileDetails = await profileModel.findOne({ user: token });
 
@@ -115,7 +117,6 @@ app.get('/api/profileDetails', async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 5500;
