@@ -7,11 +7,6 @@ import { FaUserFriends } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import EditProfileModal from "./EditProfileModal";
 const ProfileSideBar = ({ setRequest, request }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
   return (
     <>
       <div className="hidden md:w-[20vw] h-screen bg-primary-600 rounded-lg md:flex flex-col justify-between items-center p-5">
@@ -66,7 +61,6 @@ const ProfileSideBar = ({ setRequest, request }) => {
           </label>
         </div>
       </div>
-      <EditProfileModal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };
