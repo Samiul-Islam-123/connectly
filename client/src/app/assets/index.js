@@ -42,3 +42,4 @@ export {default as message}  from '../assets/message.png'
 
 export {default as sidebar_img} from '../assets/sidebar_img.png'
 export {default as cover_profile} from '../assets/cover_profile.png'
+export {default as explore_grid1} from '../assets/explore_grid1.png'

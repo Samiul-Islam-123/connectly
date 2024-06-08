@@ -31,7 +31,7 @@ const RightNav = () => {
 
                             <Link href={'/'} className='font-medium text-white py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><Image src={feed} className='text-black w-5 h-5' /> Feeds</Link>
 
-                            <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><MdOutlineExplore size={22} /> Explore</Link>
+                            <Link href={'/explore'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><MdOutlineExplore size={22} /> Explore</Link>
 
                             <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><IoChatbubbleEllipsesOutline size={22} /> Chat</Link>
 
