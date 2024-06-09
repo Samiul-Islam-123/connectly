@@ -29,7 +29,7 @@ const Navbar = () => {
               href={"/"}
               className="text-white bg-[#FF578E] text-xs rounded-full px-4 py-2 flex items-center gap-2"
             >
-              <Image alt="feed" width={22} src={feed} />
+              <Image width={22} src={feed} />
               Feed
             </Link>
 
@@ -37,7 +37,7 @@ const Navbar = () => {
               href={"/"}
               className="bg-[#FFEDED] focus:text-white focus:bg-[#FF578E] rounded-full text-xs px-4 py-2 flex items-center gap-2"
             >
-              <Image alt="group" width={22} src={group} />
+              <Image width={22} src={group} />
               Explore
             </Link>
 
@@ -45,7 +45,7 @@ const Navbar = () => {
               href={"/"}
               className="bg-[#FFEDED] focus:text-white focus:bg-[#FF578E] rounded-full text-xs px-4 py-2 flex items-center gap-2"
             >
-              <Image alt="vides" width={22} src={vibe} />
+              <Image width={22} src={vibe} />
               Vibes
             </Link>
 
@@ -53,7 +53,7 @@ const Navbar = () => {
               href={"/"}
               className="bg-[#FFEDED] focus:text-white focus:bg-[#FF578E] rounded-full text-xs px-4 py-2 flex items-center gap-2"
             >
-              <Image alt="pending" width={22} src={pending} />
+              <Image width={22} src={pending} />
               Pending Requests
             </Link>
           </div>

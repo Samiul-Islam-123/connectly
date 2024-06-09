@@ -22,6 +22,7 @@ export {default as post_img2} from '../assets/post2_img.png'
 export {default as post_img_2} from '../assets/post2_img2.png'
 export {default as post_img4} from '../assets/post4_img.png'
 export {default as heart} from '../assets/heart.png'
+export {default as heart_fill} from '../assets/heart-fill.png'
 export {default as share} from '../assets/share.png'
 export {default as comment} from '../assets/comment.png'
 
@@ -41,3 +42,5 @@ export {default as bag}  from '../assets/bag.png'
 export {default as message}  from '../assets/message.png'
 
 export {default as sidebar_img} from '../assets/sidebar_img.png'
+export {default as cover_profile} from '../assets/cover_profile.png'
+export {default as explore_grid1} from '../assets/explore_grid1.png'
