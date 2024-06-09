@@ -1,9 +1,6 @@
 "use client";
-import PendingRequest from "@/components/PendingRequest";
-import ProfileSideBar from "@/components/ProfileSideBar";
-import SentRequest from "@/components/SentRequest";
-import { RightNav } from "@/components";
-import { Img, Pic, cover_profile } from "../assets";
+import { Post, RightNav } from "@/components";
+import { Img, Pic, cover_profile, explore_grid1 } from "../assets";
 import Link from "next/link";
 import { MdOutlineInterests } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
@@ -11,61 +8,86 @@ import { LuPartyPopper } from "react-icons/lu";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import React, { useLayoutEffect, useState } from "react";
 import Image from "next/image";
+import TimeLine from "@/components/TimeLine";
 
 const Profile = () => {
-  const [request, setRequest] = useState(false);
-  const [activeTab, setActiveTab] = useState();
+  const [activeTab, setActiveTab] = useState('');
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   useLayoutEffect(() => {
-    setActiveTab(request ? "pendingRequests" : "followers");
-  }, [request]);
+    setActiveTab('timeline')
+  }, [])
 
   return (
     <>
-      {/* <div className="relative flex flex-col">
-        <div className="flex">
-          <div className="">
-            <ProfileSideBar setRequest={setRequest} request={request} />
-          </div>
-          <div className="w-full flex flex-col gap-5">
-            <Navbar />
-            
-          </div>
-        </div>
-
-      </div> */}
 
       <div className="grid-container relative">
         {/* Image */}
-        <div className="px-5 py-5 flex items-center gap-5 story-card relative">
-          <div className="bg-white rounded-2xl">
-            <Image src={cover_profile} />
-            <div className="relative left-5 bottom-10 flex items-center">
-              <Image src={Pic} className="w-[10rem] h-[10rem] " />
+        <div className="px-5 py-2 flex items-center story-card w-[50rem]">
+          <div className="bg-white rounded-2xl h-[18rem]">
+            <Image src={cover_profile} className="h-[8rem]" />
+            <div className="flex items-center h-[8rem]">
+              <Image src={Pic} className="w-[10rem] h-[10rem] relative left-5 bottom-10 " />
 
-              <div className="flex items-center justify-between px-8 w-full">
-                <h1 className="">Alexandro Vargas</h1>
+              <div className="flex justify-between px-10 w-full">
+                <div className="flex flex-col gap-1">
+                  <h1 className="font-semibold text-lg">Alexandro Vargas</h1>
+                  <div className="flex flex-col ">
+                    <p className="text-sm text-[#656565]">Bio</p>
+                    <p className="text-xs w-[15rem]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci reprehenderit.</p>
+                  </div>
+                </div>
 
-                <div className="flex flex-col gap-1 mt-8">
-                  <h3>Post</h3>
-                  <p>55</p>
-                </div>
-                <div className="flex flex-col gap-1 mt-8">
-                  <h3>Friends</h3>
-                  <p>12k</p>
-                </div>
-                <div className="flex flex-col gap-1 mt-8">
-                  <h3>Followers</h3>
-                  <p>57k</p>
+                <div className="flex items-center gap-6 mb-14 text-[#656565]">
+                  <div className="flex flex-col">
+                    <p className="font-medium ">Posts</p>
+                    <p className="font-medium ">10</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="font-medium ">Friends</p>
+                    <p className="font-medium ">55</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="font-medium ">Followers</p>
+                    <p className="font-medium ">1000</p>
+                  </div>
                 </div>
 
               </div>
             </div>
 
-            <div className="flex items-center gap-3 px-4 py-2">
-              <Link href={'/profile/timeline'} className="font-semibold hover:text-[#F45044] text-[#F45044] border-b-[1px] border-[#F45044]">TimeLine</Link>
-              <Link href={'/profile/about'} className="font-medium hover:text-[#F45044] focus:font-semibold focus:text-[#F45044]">About</Link>
-              <Link href={'/profile/media'} className="font-medium hover:text-[#F45044] focus:font-semibold focus:text-[#F45044]">Media</Link>
+            <div className="flex items-center gap-3 px-4">
+              <button
+                onClick={() => handleTabChange('timeline')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'timeline'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                TimeLine
+              </button>
+              <button
+                onClick={() => handleTabChange('about')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'about'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleTabChange('media')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'media'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                Media
+              </button>
+
             </div>
 
           </div>
@@ -80,7 +102,7 @@ const Profile = () => {
           >
             <div
               id="sidebar"
-              className="bg-white h-96 md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
+              className="bg-white h-fit md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
               x-show="sidenav"
             >
               <div className="py-5 px-1">
@@ -118,25 +140,147 @@ const Profile = () => {
                       <LiaUserFriendsSolid size={22} /> Friends
                     </Link>
                   </div>
+
+                  <div className="flex gap-5 flex-col">
+                    <div>
+                      <div className="bg-[#F45044] text-white px-5 py-3">
+                        <p className="w-32">How to get more views:</p>
+                      </div>
+
+                      <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center">
+                        <input
+                          checked
+                          type="checkbox"
+                          className="w-7 h-7 border-0 text-red-600"
+                        />
+                        <div className="flex flex-col">
+                          <p>Upload profile picture</p>
+                          <p className="text-xs">Get found more easily</p>
+                        </div>
+                      </div>
+                      <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center">
+                        <input type="checkbox" className="w-7 h-7 border-0" />
+                        <div className="flex flex-col">
+                          <p>Confirm email address</p>
+                          <p className="text-xs">Confirm your account</p>
+                        </div>
+                      </div>
+                      <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center">
+                        <input type="checkbox" className="w-7 h-7 border-0" />
+                        <div className="flex flex-col">
+                          <p>Verify profile</p>
+                          <p className="text-xs">Get trust</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center">
+                      <input type="checkbox" className="w-7 h-7 border-0" />
+                      <div className="flex flex-col">
+                        <p>Verify profile</p>
+                        <p className="text-xs">Get trust</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="sidebar-right py-2">
+        <div className="sidebar-right h-[58rem] flex flex-col gap-1 py-2">
           <RightNav />
+          <div className="flex flex-col gap-5">
+            <div className="bg-white h-fit w-full px-4 py-2 rounded-lg">
+
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Photos</h3>
+                <p className="border-b-2 border-[#F45044] text-[#F45044] text-sm">See All</p>
+              </div>
+
+              <div>
+                <div class="grid grid-cols-3 gap-4 px-1 py-3">
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <Image
+                      className="h-auto max-w-full"
+                      src={explore_grid1}
+                      alt=""
+                    />
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div className="bg-white h-96 w-full px-4 py-2 rounded-lg">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Photos</h3>
+                <p className="border-b-2 border-[#F45044] text-[#F45044] text-sm">See All</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="feed-section mx-5">
-          <div className="flex items-center justify-center flex-col px-6 gap-5">
-            {/* Filter */}
-            <div className="w-[44rem] h-full bg-white h-full rounded-lg px-4 py-2 flex items-center justify-between">
-
-            </div>
-
+        <div className="feed-section mx-5 mb-5">
+          <div className="flex items-center justify-center flex-col">
             {/* Images */}
-            <div className="py-3">
-
+            <div className="w-full h-full rounded-lg mx-auto">
+              {activeTab === 'timeline' && <TimeLine />}
+              {activeTab === 'about' && <Post />}
+              {activeTab === 'media' && <Post />}
             </div>
 
           </div>

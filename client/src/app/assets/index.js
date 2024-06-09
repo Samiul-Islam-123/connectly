@@ -22,6 +22,7 @@ export {default as post_img2} from '../assets/post2_img.png'
 export {default as post_img_2} from '../assets/post2_img2.png'
 export {default as post_img4} from '../assets/post4_img.png'
 export {default as heart} from '../assets/heart.png'
+export {default as heart_fill} from '../assets/heart-fill.png'
 export {default as share} from '../assets/share.png'
 export {default as comment} from '../assets/comment.png'
 

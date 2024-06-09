@@ -10,6 +10,7 @@ import { MdOutlineInterests } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
 import { LuPartyPopper } from "react-icons/lu";
 import { LiaUserFriendsSolid } from "react-icons/lia";
+import ImageExplore from "@/components/ImageExplore";
 
 const page = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ const page = () => {
           >
             <div
               id="sidebar"
-              class="bg-white h-96 md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
+              class="bg-white h-fit md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
               x-show="sidenav"
             >
               <div class="py-5 px-1">
@@ -126,39 +127,39 @@ const page = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="absolute top-10 left-20 rounded-md shadow-lg bg-white w-48">
+                  <div className="absolute top-10 left-20 rounded-md shadow-lg bg-white w-48 z-50">
                     <ul className="py-2 text-sm">
                       <li className="px-4 py-2 hover:bg-gray-100">
-                        <a
-                          href="#"
+                        <Link
+                          href={"/explore"}
                           className="text-gray-600 hover:text-gray-900"
                         >
-                          Friends
-                        </a>
+                          👫 Friends
+                        </Link>
                       </li>
                       <li className="px-4 py-2 hover:bg-gray-100">
-                        <a
-                          href="#"
+                        <Link
+                          href={"/explore"}
                           className="text-gray-600 hover:text-gray-900"
                         >
-                          Family
-                        </a>
+                          🎶 Vibe Together
+                        </Link>
                       </li>
                       <li className="px-4 py-2 hover:bg-gray-100">
-                        <a
-                          href="#"
+                        <Link
+                          href={"/explore"}
                           className="text-gray-600 hover:text-gray-900"
                         >
-                          Colleagues
-                        </a>
+                          ❤️ Date
+                        </Link>
                       </li>
                       <li className="px-4 py-2 hover:bg-gray-100">
-                        <a
-                          href="#"
+                        <Link
+                          href={"/explore"}
                           className="text-gray-600 hover:text-gray-900"
                         >
-                          Classmates
-                        </a>
+                          💼 Work
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -168,133 +169,10 @@ const page = () => {
 
             {/* Images */}
             <div className="py-3">
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="h-auto max-w-full"
-                    src={explore_grid1}
-                    alt=""
-                  />
-                  <p className="absolute bottom-0 left-0 bg-[#FFEDED8A] w-full px-2 py-2 text-sm">
-                    Name
-                  </p>
-                </div>
-                
-              </div>
+              <ImageExplore />
 
               <div className="flex items-center justify-center py-3 text-white">
-                <button className="px-5 py-2 bg-[#F45044] rounded-full">
+                <button className="px-5 py-2 bg-[#F45044] rounded-md">
                   Load More
                 </button>
               </div>
