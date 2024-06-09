@@ -1,14 +1,16 @@
 "use client";
 import { Post, RightNav } from "@/components";
-import { Img, Pic, cover_profile, explore_grid1 } from "../assets";
+import { Img, Photos, Photos2, Pic, cover_profile } from "../assets";
 import Link from "next/link";
 import { MdOutlineInterests } from "react-icons/md";
 import { GrGroup } from "react-icons/gr";
 import { LuPartyPopper } from "react-icons/lu";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import TimeLine from "@/components/TimeLine";
+import AboutProfile from "@/components/AboutProfile";
+import MediaPost from "@/components/MediaPost";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('');
@@ -17,9 +19,38 @@ const Profile = () => {
     setActiveTab(tab);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setActiveTab('timeline')
   }, [])
+
+  const sidePhotos = [Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos]
+
+  const friendsPhoto = [
+    {
+      img: Photos,
+      name: 'Name'
+    },
+    {
+      img: Photos2,
+      name: 'Name'
+    },
+    {
+      img: Photos,
+      name: 'Name'
+    },
+    {
+      img: Photos2,
+      name: 'Name'
+    },
+    {
+      img: Photos,
+      name: 'Name'
+    },
+    {
+      img: Photos2,
+      name: 'Name'
+    },
+  ]
 
   return (
     <>
@@ -44,15 +75,15 @@ const Profile = () => {
                 <div className="flex items-center gap-6 mb-14 text-[#656565]">
                   <div className="flex flex-col">
                     <p className="font-medium ">Posts</p>
-                    <p className="font-medium ">10</p>
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-medium ">Friends</p>
                     <p className="font-medium ">55</p>
                   </div>
                   <div className="flex flex-col">
+                    <p className="font-medium ">Friends</p>
+                    <p className="font-medium ">12k</p>
+                  </div>
+                  <div className="flex flex-col">
                     <p className="font-medium ">Followers</p>
-                    <p className="font-medium ">1000</p>
+                    <p className="font-medium ">57k</p>
                   </div>
                 </div>
 
@@ -142,7 +173,7 @@ const Profile = () => {
                   </div>
 
                   <div className="flex gap-5 flex-col">
-                    <div>
+                    <div className="rounded-lg overflow-hidden">
                       <div className="bg-[#F45044] text-white px-5 py-3">
                         <p className="w-32">How to get more views:</p>
                       </div>
@@ -151,7 +182,7 @@ const Profile = () => {
                         <input
                           checked
                           type="checkbox"
-                          className="w-7 h-7 border-0 text-red-600"
+                          className="w-7 h-7 border-0 text-red-600 "
                         />
                         <div className="flex flex-col">
                           <p>Upload profile picture</p>
@@ -173,11 +204,11 @@ const Profile = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center">
-                      <input type="checkbox" className="w-7 h-7 border-0" />
+                    <div className="bg-[#FFEDED] border-b-[1px] px-5 py-3 flex gap-3 items-center rounded-lg">
+                      <input checked type="checkbox" className="w-7 h-7 border-0" />
                       <div className="flex flex-col">
-                        <p>Verify profile</p>
-                        <p className="text-xs">Get trust</p>
+                        <p>Interested In</p>
+                        <p className="text-xs">New Friends or Chats</p>
                       </div>
                     </div>
                   </div>
@@ -186,10 +217,10 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="sidebar-right h-[58rem] flex flex-col gap-1 py-2">
+        <div className="sidebar-right h-[58rem] flex flex-col gap-6 py-2">
           <RightNav />
-          <div className="flex flex-col gap-5">
-            <div className="bg-white h-fit w-full px-4 py-2 rounded-lg">
+          <div className="flex flex-col gap-6">
+            <div className="bg-white h-fit w-full px-4 py-3 rounded-lg">
 
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-medium">Photos</h3>
@@ -197,80 +228,41 @@ const Profile = () => {
               </div>
 
               <div>
-                <div class="grid grid-cols-3 gap-4 px-1 py-3">
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      className="h-auto max-w-full"
-                      src={explore_grid1}
-                      alt=""
-                    />
-                  </div>
-                  
+                <div class="grid grid-cols-3 gap-3 px-1 py-3">
+                  {sidePhotos.map((sideP, index) => {
+                    return <div key={index} className="">
+                      <Image
+                        className="h-16 w-full rounded"
+                        src={sideP}
+                        alt=""
+                      />
+                    </div>
+                  })}
+
                 </div>
               </div>
+
             </div>
-            <div className="bg-white h-96 w-full px-4 py-2 rounded-lg">
+            <div className="bg-white h-fit w-full px-4 py-2 rounded-lg">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-medium">Photos</h3>
+                <h3 className="text-lg font-medium">Friends</h3>
                 <p className="border-b-2 border-[#F45044] text-[#F45044] text-sm">See All</p>
               </div>
+              <div class="grid grid-cols-2 gap-3 px-1 py-3">
+                {friendsPhoto.map((fp, index) => {
+                  return <div key={index} className="flex flex-col">
+                    <Image
+                      className="h-20 w-20 rounded"
+                      src={fp.img}
+                      alt=""
+                    />
+                    <p className="text-xs text-[#656565]">{fp.name}</p>
+                  </div>
+                })}
+
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -279,8 +271,8 @@ const Profile = () => {
             {/* Images */}
             <div className="w-full h-full rounded-lg mx-auto">
               {activeTab === 'timeline' && <TimeLine />}
-              {activeTab === 'about' && <Post />}
-              {activeTab === 'media' && <Post />}
+              {activeTab === 'about' && <AboutProfile />}
+              {activeTab === 'media' && <MediaPost />}
             </div>
 
           </div>

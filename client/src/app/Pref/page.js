@@ -5,8 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 const Page = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedInterests, setSelectedInterests] = useState([]);
-
-  const interests = [
+  const [availableInterests, setAvailableInterests] = useState([
     { icon: "📷", name: "Photography" },
     { icon: "🎨", name: "Art" },
     { icon: "✂️", name: "Crafts" },
@@ -43,14 +42,17 @@ const Page = () => {
     { icon: "🏃‍♀️", name: "Running" },
     { icon: "🛹", name: "Skateboarding" },
     { icon: "⛷️", name: "Skiing" },
-  ];
+  ]);
 
   const handleSelectInterest = (interest) => {
     if (
       !selectedInterests.includes(interest) &&
-      selectedInterests.length < 10
+      selectedInterests.length < 5
     ) {
       setSelectedInterests((prevInterests) => [...prevInterests, interest]);
+      setAvailableInterests((prevInterests) =>
+        prevInterests.filter((i) => i !== interest)
+      );
     }
   };
 
@@ -58,6 +60,7 @@ const Page = () => {
     setSelectedInterests((prevInterests) =>
       prevInterests.filter((i) => i !== interest)
     );
+    setAvailableInterests((prevInterests) => [...prevInterests, interest]);
   };
 
   return (
@@ -82,8 +85,30 @@ const Page = () => {
               <RxCross1 size={22} />
             </button>
             <h2 className="text-xl font-bold mb-4">My Interests</h2>
+            <div className="flex flex-wrap gap-4 mb-4">
+              {selectedInterests.map((interest) => (
+                <div
+                  key={interest.name}
+                  className="flex items-center flex-wrap rounded-full border-[1px] px-4 py-2 bg-[#FF578E] text-white"
+                >
+                  <p className="flex items-center gap-5">
+                    {interest.icon}
+                    {interest.name}
+                  </p>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeselectInterest(interest);
+                    }}
+                    className="text-gray-600 hover:text-gray-800 ml-2"
+                  >
+                    <RxCross1 size={18} />
+                  </button>
+                </div>
+              ))}
+            </div>
             <div className="grid grid-cols-3 gap-4">
-              {interests.map((interest) => (
+              {availableInterests.map((interest) => (
                 <div
                   key={interest.name}
                   className={`flex items-center justify-between rounded-full border-[1px] px-4 py-2 ${
@@ -97,17 +122,6 @@ const Page = () => {
                     {interest.icon}
                     {interest.name}
                   </p>
-                  {selectedInterests.includes(interest) && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeselectInterest(interest);
-                      }}
-                      className="text-gray-600 hover:text-gray-800 ml-2"
-                    >
-                      <RxCross1 size={18} />
-                    </button>
-                  )}
                 </div>
               ))}
             </div>

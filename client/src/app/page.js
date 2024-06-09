@@ -1,6 +1,5 @@
 import "./globals.css";
 import {
-  Navbar,
   Post,
   SideBar,
   StoryCard,
