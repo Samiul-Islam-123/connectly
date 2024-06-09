@@ -51,7 +51,7 @@ exports.createProfile = async (req, res) => {
 
 // Read Current User Profile
 exports.getCurrentProfile = async (req, res) => {
-  console.log("Executing this route")
+  // console.log("Executing this route")
   try {
     const profile = await Profile.findOne({ user: req.user.id })
       .populate("user", ["name", "email"])
@@ -73,7 +73,6 @@ exports.getCurrentProfile = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
 
 // Read User Profile by User ID
 exports.getProfileById = async (req, res) => {

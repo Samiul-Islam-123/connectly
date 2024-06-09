@@ -64,7 +64,7 @@ const getNearbyProfiles = async (currentUserProfile, minMatchPercentage) => {
       distance: distanceInfo.distance.text,
       duration: distanceInfo.duration.text,
       location: profile.location,
-      link: `https://dummy-link-to-profile/${profile.user}`,
+      link: ``,
     };
   });
 };
@@ -72,7 +72,7 @@ const getNearbyProfiles = async (currentUserProfile, minMatchPercentage) => {
 const preferencesOn = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { minMatchPercentage = 50 } = req.query;
+    const { match = 50 } = req.query;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid user ID" });
@@ -86,7 +86,7 @@ const preferencesOn = async (req, res) => {
 
     const nearbyProfiles = await getNearbyProfiles(
       currentUserProfile,
-      parseInt(minMatchPercentage)
+      parseInt(match)
     );
 
     res.status(200).json(nearbyProfiles);
@@ -99,7 +99,7 @@ const preferencesOn = async (req, res) => {
 const preferencesOff = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { minMatchPercentage = 50 } = req.query;
+    const { match = 50 } = req.query;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid user ID" });
@@ -113,7 +113,7 @@ const preferencesOff = async (req, res) => {
 
     const matchedProfiles = await fetchProfiles(
       currentUserProfile,
-      parseInt(minMatchPercentage)
+      parseInt(match)
     );
 
     res.status(200).json(
@@ -128,7 +128,51 @@ const preferencesOff = async (req, res) => {
   }
 };
 
+const searchProfilesByInterest = async (req, res) => {
+  try {
+    const { interest } = req.query;
+    const userId = req.user.id;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const currentUserProfile = await Profile.findOne({ user: userId });
+
+    if (!currentUserProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    const matchingProfiles = await Profile.find({
+      user: { $ne: currentUserProfile.user },
+      interests: { $in: [interest] },
+    });
+
+    res.status(200).json(
+      matchingProfiles.map((profile) => ({
+        profile,
+        link: `/profile/${profile.user}`,
+      }))
+    );
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error searching profiles", error });
+  }
+};
+
+const getAllProfiles = async (req, res) => {
+  try {
+    const profiles = await Profile.find({}).limit(16);
+    res.status(200).json(profiles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching profiles", error });
+  }
+};
+
 module.exports = {
   preferencesOn,
   preferencesOff,
+  searchProfilesByInterest,
+  getAllProfiles,
 };

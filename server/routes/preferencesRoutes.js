@@ -3,11 +3,6 @@ const preferencesController = require("../controllers/preferencesController");
 const authController = require("../controllers/authController");
 const router = express.Router();
 
-//dummy route
-router.get("/", (req, res) => {
-  res.send("Preferences route");
-});
-
 router.get(
   "/on",
   authController.authenticate,
@@ -18,5 +13,13 @@ router.get(
   authController.authenticate,
   preferencesController.preferencesOff
 );
+
+router.get(
+  "/",
+  authController.authenticate,
+  preferencesController.searchProfilesByInterest
+);
+
+router.get("/all", preferencesController.getAllProfiles);
 
 module.exports = router;

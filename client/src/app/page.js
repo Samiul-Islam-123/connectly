@@ -14,7 +14,7 @@ export default function Home() {
     <>
 
       <div className="grid-container relative">
-        <div className="p-5 flex items-center gap-5 justify-center story-card">
+        <div className="p-5 flex items-center gap-5 story-card">
           <StoryCard />
         </div>
         <div className="sidebar-left">
@@ -23,7 +23,7 @@ export default function Home() {
         <div className="sidebar-right p-5">
           <RightNav />
         </div>
-        <div className="feed-section">
+        <div className="feed-section mx-auto">
           <div className="flex items-center justify-center flex-col ">
             <CreatePost />
             <Post />
