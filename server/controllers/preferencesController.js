@@ -64,7 +64,7 @@ const getNearbyProfiles = async (currentUserProfile, minMatchPercentage) => {
       distance: distanceInfo.distance.text,
       duration: distanceInfo.duration.text,
       location: profile.location,
-      link: `https://dummy-link-to-profile/${profile.user}`,
+      link: ``,
     };
   });
 };
