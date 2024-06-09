@@ -2,6 +2,13 @@ const Notification = require("../models/notificationModel");
 
 const fetchAllNotifications = async (req, res) => {
   try {
+    const { type } = req.query;
+    if (type) {
+      const notifications = await Notification.find({ user: req.user.id, type })
+        .sort({ createdAt: -1 })
+        .limit(20);
+      return res.status(200).json(notifications);
+    }
     const notifications = await Notification.find({ user: req.user.id })
       .sort({ createdAt: -1 })
       .limit(20);

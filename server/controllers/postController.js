@@ -15,13 +15,13 @@ const getProfileByUserId = require("../utils/getProfileByUser");
 const createPost = async (req, res) => {
   try {
     const { content } = req.body;
-    const imageLocalPath = req?.files?.image?.[0]?.path;
-    let image;
+    const assetLocalPath = req?.files?.asset?.[0]?.path;
+    let asset;
 
-    if (imageLocalPath) {
-      const cloudinaryResponse = await uploadToCloudinary(imageLocalPath);
+    if (assetLocalPath) {
+      const cloudinaryResponse = await uploadToCloudinary(assetLocalPath);
       if (cloudinaryResponse) {
-        image = cloudinaryResponse.secure_url;
+        asset = cloudinaryResponse.secure_url;
       }
     }
 
@@ -33,7 +33,7 @@ const createPost = async (req, res) => {
     const post = new Post({
       user: req.user.id,
       content,
-      image,
+      asset,
     });
 
     await post.save();
@@ -81,7 +81,7 @@ const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { content } = req.body;
-    const imageLocalPath = req?.files?.image?.[0]?.path;
+    const assetLocalPath = req?.files?.asset?.[0]?.path;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid post ID" });
@@ -92,19 +92,19 @@ const updatePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    if (imageLocalPath && post.image) {
-      await deleteFromCloudinary(post.image);
+    if (assetLocalPath && post.asset) {
+      await deleteFromCloudinary(post.asset);
     }
-    let image;
-    if (imageLocalPath) {
-      const cloudinaryResponse = await uploadToCloudinary(imageLocalPath);
+    let asset;
+    if (assetLocalPath) {
+      const cloudinaryResponse = await uploadToCloudinary(assetLocalPath);
       if (cloudinaryResponse) {
-        image = cloudinaryResponse.secure_url;
+        asset = cloudinaryResponse.secure_url;
       }
     }
 
     post.content = content;
-    if (image) post.image = image;
+    if (asset) post.asset = asset;
     post.updatedAt = Date.now();
 
     await post.save();
@@ -128,8 +128,8 @@ const deletePost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    if (post.image) {
-      await deleteFromCloudinary(post.image);
+    if (post.asset) {
+      await deleteFromCloudinary(post.asset);
     }
 
     await Post.findByIdAndDelete(id);
