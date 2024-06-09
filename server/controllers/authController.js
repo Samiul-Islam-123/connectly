@@ -88,7 +88,7 @@ exports.login = async (req, res, next) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "30d" },
       (err, token) => {
         if (err) throw err;
         res.header("x-auth-token", token);
@@ -134,6 +134,7 @@ exports.authenticate = (req, res, next) => {
   const token = req.header("x-auth-token");
 
   if (!token) {
+    console.log("NOr token")
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
@@ -142,6 +143,7 @@ exports.authenticate = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
+    console.log("Token not valid")
     res.status(401).json({ message: "Token is not valid" });
   }
 };

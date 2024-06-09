@@ -63,13 +63,13 @@ const Profile = () => {
               <h2 className="text-gray-800 text-3xl font-bold">
                 {profileData.user.name}
               </h2>
-              <a
+              {/* <a
                 className="text-gray-400 mt-2 hover:text-blue-500"
                 href="#"
                 target="BLANK()"
               >
                 @fardeen_19
-              </a>
+              </a> */}
               <p className="mt-2 text-gray-500 text-sm">
                 {profileData.bio}
               </p>
@@ -139,7 +139,7 @@ const Profile = () => {
         {activeTab === "posts" && <div>Posts</div>}
         {activeTab === "pendingRequests" && (
           <div className="w-2/3 mx-auto h-auto">
-            <PendingRequest pendingRequestData = {profileData.friendRequestsReceived}/>
+            <PendingRequest myData = {profileData} pendingRequestData = {profileData.friendRequestsReceived}/>
           </div>
         )}
         {activeTab === "sentRequests" && (

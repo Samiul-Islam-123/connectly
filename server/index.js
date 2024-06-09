@@ -14,6 +14,9 @@ const preferencesRoutes = require("./routes/preferencesRoutes");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+const profileModel = require('./models/profileModel')
+const jwt = require('jsonwebtoken');
+
 
 require("./config/passportConfig");
 
@@ -94,18 +97,28 @@ app.get("/", (req, res) => {
   res.send("Home Page");
 });
 
-//get profile Data from user ID
+// Get profile data from user ID
 app.get("/api/profileDetails", async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
+    const token = req.header("x-auth-token");
+    const userId = req.header("user-id");
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(400).json({ message: "Please provide a valid token" });
+    if (!token) {
+      return res.status(401).json({ message: "No token, authorization denied" });
     }
 
-    const token = authHeader.split(" ")[1];
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+      return res.status(400).json({ message: "Token is not valid" });
+    }
 
-    const profileDetails = await profileModel.findOne({ user: token });
+    if (!userId) {
+      return res.status(400).json({ message: "No user ID provided in headers" });
+    }
+
+    const profileDetails = await profileModel.findOne({ user: userId });
 
     if (!profileDetails) {
       return res.status(404).json({ message: "Profile not found" });

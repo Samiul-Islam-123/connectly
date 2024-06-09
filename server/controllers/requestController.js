@@ -76,9 +76,11 @@ const acceptFriendRequest = async (req, res) => {
       return res.status(400).json({ message: "No friend request from this user" });
     }
 
+    // Add each other to friends list
     userProfile.friends.push(requestSenderProfile._id);
     requestSenderProfile.friends.push(userProfile._id);
 
+    // Remove the friend request data points
     userProfile.friendRequestsReceived.pull(requestSenderProfile._id);
     requestSenderProfile.friendRequestsSent.pull(userProfile._id);
 
@@ -90,6 +92,7 @@ const acceptFriendRequest = async (req, res) => {
     return res.status(500).json({ message: "Error accepting friend request", error });
   }
 };
+
 
 
 const rejectFriendRequest = async (req, res) => {
