@@ -7,7 +7,7 @@ const OtpVerification = () => {
       <div class="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
         <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
           <div class="flex flex-col items-center justify-center text-center space-y-2">
-            <h1 className="text-xl font-bold text-primary-700">CONNECTLY</h1>
+            <h1 className="text-xl font-bold text-primary">CONNECTLY</h1>
             <div class="font-semibold text-3xl">
               <p>Email Verification</p>
             </div>

@@ -7,8 +7,7 @@ import React, { useState } from "react";
 
 const Auth = () => {
   const [isAnimated, setIsAnimated] = useState(false);
-  const overlayBg =
-    "bg-gradient-to-r from-primary-400 via-primary-500 to-primary-800";
+  const overlayBg = "bg-gradient-to-r from-primary via-primary to-primary";
 
   return (
     <div className="h-screen w-full bg-white relative overflow-hidden rounded-lg">

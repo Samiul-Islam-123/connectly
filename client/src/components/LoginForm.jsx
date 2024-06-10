@@ -1,7 +1,11 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+
+import { Button } from "./ui/button";
+
 import Cookies from "js-cookie";
+
 
 const LoginForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
@@ -56,10 +60,10 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
               <h1 className="text-5xl font-bold text-primary-600">
                 Welcome back!
               </h1>
-              <button className="my-6 p-4  uppercase rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer">
+              <Button className="my-6   uppercase rounded-lg  text-secondary font-semibold text-center flex items-center justify-center gap-2 w-full ">
                 <FaGoogle className="text-2xl" /> Sign In With Google
-              </button>
-              <div className="w-full text-primary-600 flex flex-row before:flex-1 before:border before:border-primary-500 before:m-auto after:flex-1 after:border after:border-primary-500 after:m-auto before:mr-3 after:ml-3">
+              </Button>
+              <div className="w-full text-primary flex flex-row before:flex-1 before:border before:border-primary before:m-auto after:flex-1 after:border after:border-primary-500 after:m-auto before:mr-3 after:ml-3">
                 OR CONTINUE WITH
               </div>
               <form className="mt-8" onSubmit={submitHandler}>
@@ -68,7 +72,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                     id="signin-email"
                     name="email"
                     type="text"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="example@gmail.com"
                     required
                     value={emailValue}
@@ -76,7 +80,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                   />
                   <label
                     htmlFor="email"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className="absolute left-0 -top-3.5 text-primary/60 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Email address
                   </label>
@@ -86,7 +90,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                     id="signin-password"
                     type="password"
                     name="password"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="Password"
                     required
                     value={passwordValue}
@@ -94,18 +98,18 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                   />
                   <label
                     htmlFor="password"
-                    className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className="absolute left-0 -top-3.5 text-primary text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-primary/40 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-primary/400 peer-focus:text-sm"
                   >
                     Password
                   </label>
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  className="mt-10 px-8 py-4 uppercase rounded-full bg-primary-600 hover:bg-primary-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer"
+                  className="mt-10  uppercase font-semibold text-center w-full"
                 >
                   Sign In
-                </button>
+                </Button>
               </form>
               <Link
                 href="#"
@@ -115,15 +119,14 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                 Forgot your password?{" "}
               </Link>
               <div className="flex md:hidden gap-2 items-center justify-center my-4">
-                <button
-                  type="button"
-                  className="text-primary-500 transition-transform ease-in"
+                <Button
+                  className="text-primary transition-transform ease-in"
                   onClick={(e) => {
                     setIsAnimated(!isAnimated);
                   }}
                 >
-                  Don&apost have an Account? Sign Up
-                </button>
+                  Don&apos;t have an Account? Sign Up
+                </Button>
               </div>
             </div>
           </div>

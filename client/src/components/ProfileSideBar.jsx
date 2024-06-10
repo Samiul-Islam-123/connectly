@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+import Link from "next/link";
+import React, { useState } from "react";
+import { FaUserEdit } from "react-icons/fa";
+import { SiEventstore } from "react-icons/si";
+import { TiGroup } from "react-icons/ti";
+import { FaUserFriends } from "react-icons/fa";
+import { AiFillLike } from "react-icons/ai";
+const ProfileSideBar = ({ setRequest, request }) => {
+  return (
+    <>
+      <div className="hidden md:w-[20vw] h-screen bg-primary-600 rounded-lg md:flex flex-col justify-between items-center p-5">
+        <div>
+          <h1 className="font-bold text-xl">CONNECTLY</h1>
+        </div>
+        <div>
+          <ul className="flex items-start flex-col gap-2">
+            <button
+              className="text-xl font-bold flex items-center gap-2"
+              onClick={toggleModal}
+            >
+              <FaUserEdit />
+              Edit Profile
+            </button>
+=======
 // import Link from "next/link";
 // import React, { useState } from "react";
 // // import { FaUserEdit } from "react-icons/fa";
@@ -13,6 +38,7 @@
 // import { GrGroup } from "react-icons/gr";
 // import { LuPartyPopper } from "react-icons/lu";
 // import { LiaUserFriendsSolid } from "react-icons/lia";
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
 
 // const ProfileSideBar = ({ setRequest, request }) => {
 // <<<<<<< master
