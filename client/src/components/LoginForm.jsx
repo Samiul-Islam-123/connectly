@@ -122,7 +122,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                     setIsAnimated(!isAnimated);
                   }}
                 >
-                  Don't have an Account? Sign Up
+                  Don&apost have an Account? Sign Up
                 </button>
               </div>
             </div>
