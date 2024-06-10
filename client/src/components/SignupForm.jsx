@@ -1,31 +1,40 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+
 const SignupForm = ({ setIsAnimated, isAnimated }) => {
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
+  const router = useRouter(); // Initialize the useRouter hook
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const apiURL = process.env.NEXT_PUBLIC_API_URL;
-  
+
     if (passwordValue === confirmPasswordValue) {
       const requestData = {
         name: nameValue,
         email: emailValue,
-        password: passwordValue
+        password: passwordValue,
       };
-  
-      //console.log("Request Data:", requestData);
-  
+
       try {
-        const response = await axios.post(`${apiURL}/api/auth/register`, requestData, {
-          headers: {
-            'Content-Type': 'application/json'
+        const response = await axios.post(
+          `${apiURL}/api/auth/register`,
+          requestData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
-        });
-        alert(response.data.message)
+        );
+        alert(response.data.message);
+
+        // Redirect to OTP page
+        router.push("/otp"); // Change this to your OTP page route
       } catch (error) {
         console.error("Error response:", error.response);
         alert(`Error: ${error.response.data.message}`);
@@ -34,7 +43,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
       alert("Please confirm your password");
     }
   };
-  
+
   return (
     <div className="selection:bg-primary-500 selection:text-white">
       <div className="flex justify-center items-center">
