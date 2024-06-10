@@ -10,6 +10,7 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+<<<<<<< HEAD
     container: {
       center: true,
       padding: "2rem",
@@ -18,6 +19,14 @@ module.exports = {
       },
     },
     extend: {
+=======
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      }, 
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

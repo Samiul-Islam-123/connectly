@@ -1,0 +1,177 @@
+ProfileSideBar
+
+{/* <div className="hidden md:w-[20vw] h-screen bg-primary-600 rounded-lg md:flex flex-col justify-between items-center p-5">
+        <div>
+          <h1 className="font-bold text-xl">CONNECTLY</h1>
+        </div>
+        <div>
+          <ul className="flex items-start flex-col gap-2">
+            <button
+              className="text-xl font-bold flex items-center gap-2"
+              onClick={toggleModal}
+            >
+              <FaUserEdit />
+              Edit Profile
+            </button>
+
+            <li
+              className="text-xl font-bold flex items-center gap-2 cursor-pointer"
+              onClick={() => setRequest(!request)}
+            >
+              <TiGroup />
+              Requests
+            </li>
+
+            <Link href={"#"}>
+              <li className="text-xl font-bold flex items-center gap-2">
+                <FaUserFriends />
+                Friends
+              </li>
+            </Link>
+            <Link href={"#"}>
+              <li className="text-xl font-bold flex items-center gap-2">
+                <AiFillLike />
+                Intrests
+              </li>
+            </Link>
+            <Link href={"#"}>
+              <li className="text-xl font-bold flex items-center gap-2">
+                <SiEventstore />
+                Events
+              </li>
+            </Link>
+          </ul>
+        </div>
+        <div>
+          <label className="inline-flex items-center cursor-pointer">
+            <input type="checkbox" value="" className="sr-only peer" />
+            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 dark:peer-focus:ring-pink-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-800"></div>
+            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-white">
+              Enable Location
+            </span>
+          </label>
+        </div>
+      </div>
+      <EditProfileModal showModal={showModal} setShowModal={setShowModal} /> */}
+
+
+
+Profile/page.jsx
+const [request, setRequest] = useState(false);
+  const [activeTab, setActiveTab] = useState();
+
+  useLayoutEffect(() => {
+    setActiveTab(request ? "pendingRequests" : "followers");
+  }, [request]);
+  
+<div className="flex">
+      <ProfileSideBar setRequest={setRequest} request={request} />
+      <div className="h-screen w-full bg-gray-200 overflow-y-auto">
+        <div className=" w-full    bg-white  shadow-lg    transform   duration-200 easy-in-out">
+          <div className=" h-32 overflow-hidden">
+            <img
+              className="w-full"
+              src="https://images.unsplash.com/photo-1632377082368-66155ad702d8?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+            />
+          </div>
+          <div className="flex justify-center px-5  -mt-12">
+            <img
+              className="h-32 w-32 bg-white p-2 rounded-full   "
+              src="https://images.unsplash.com/photo-1715615751025-e7ebe7f47eea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+            />
+          </div>
+          <div className=" ">
+            <div className="text-center px-14">
+              <h2 className="text-gray-800 text-3xl font-bold">
+                Fardeen Ahamed
+              </h2>
+              <a
+                className="text-gray-400 mt-2 hover:text-blue-500"
+                href="#"
+                target="BLANK()"
+              >
+                @fardeen_19
+              </a>
+              <p className="mt-2 text-gray-500 text-sm">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s,{" "}
+              </p>
+            </div>
+            <hr className="mt-6" />
+            {!request && (
+              <div className="flex  bg-gray-50 text-black">
+                <div
+                  className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => setActiveTab("posts")}
+                >
+                  <p>
+                    <span className="font-semibold">10</span> Posts
+                  </p>
+                </div>
+                <div className="border"></div>
+                <div
+                  className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => setActiveTab("followers")}
+                >
+                  <p>
+                    <span className="font-semibold">2.5 k</span> Followers
+                  </p>
+                </div>
+                <div className="border"></div>
+                <div
+                  className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => setActiveTab("following")}
+                >
+                  <p>
+                    {" "}
+                    <span className="font-semibold">2.0 k </span> Following
+                  </p>
+                </div>
+              </div>
+            )}
+            {request && (
+              <div className="flex  bg-gray-50 text-black">
+                <div
+                  className={`text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer ${
+                    activeTab === "pendingRequests" &&
+                    "border-b-2 border-b-black"
+                  }`}
+                  onClick={() => setActiveTab("pendingRequests")}
+                >
+                  <p>
+                    <span className="font-semibold">15</span> Pending Requests
+                  </p>
+                </div>
+                <div className="border"></div>
+                <div
+                  className={`text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer ${
+                    activeTab === "sentRequests" && "border-b-2 border-b-black"
+                  }`}
+                  onClick={() => setActiveTab("sentRequests")}
+                >
+                  <p>
+                    <span className="font-semibold">2</span> Sent Requests
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        {activeTab === "followers" && <div>Followers</div>}
+        {activeTab === "following" && <div>Following</div>}
+        {activeTab === "posts" && <div>Posts</div>}
+        {activeTab === "pendingRequests" && (
+          <div className="w-2/3 mx-auto h-auto">
+            <PendingRequest />
+          </div>
+        )}
+        {activeTab === "sentRequests" && (
+          <div className="w-2/3 mx-auto h-auto">
+            <SentRequest />
+          </div>
+        )}
+      </div>
+    </div>

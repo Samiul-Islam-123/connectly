@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
@@ -21,47 +22,78 @@ const ProfileSideBar = ({ setRequest, request }) => {
               <FaUserEdit />
               Edit Profile
             </button>
+=======
+// import Link from "next/link";
+// import React, { useState } from "react";
+// // import { FaUserEdit } from "react-icons/fa";
+// // import { SiEventstore } from "react-icons/si";
+// // import { TiGroup } from "react-icons/ti";
+// // import { FaUserFriends } from "react-icons/fa";
+// // import { AiFillLike } from "react-icons/ai";
+// // import EditProfileModal from "./EditProfileModal";
+// import { sidebar_img } from '../app/assets'
+// import Image from 'next/image'
+// import { Img } from '../app/assets'
+// import { MdOutlineInterests } from "react-icons/md";
+// import { GrGroup } from "react-icons/gr";
+// import { LuPartyPopper } from "react-icons/lu";
+// import { LiaUserFriendsSolid } from "react-icons/lia";
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
 
-            <li
-              className="text-xl font-bold flex items-center gap-2 cursor-pointer"
-              onClick={() => setRequest(!request)}
-            >
-              <TiGroup />
-              Requests
-            </li>
+// const ProfileSideBar = ({ setRequest, request }) => {
+// <<<<<<< master
+// =======
+//   // const [showModal, setShowModal] = useState(false);
 
-            <Link href={"#"}>
-              <li className="text-xl font-bold flex items-center gap-2">
-                <FaUserFriends />
-                Friends
-              </li>
-            </Link>
-            <Link href={"#"}>
-              <li className="text-xl font-bold flex items-center gap-2">
-                <AiFillLike />
-                Intrests
-              </li>
-            </Link>
-            <Link href={"#"}>
-              <li className="text-xl font-bold flex items-center gap-2">
-                <SiEventstore />
-                Events
-              </li>
-            </Link>
-          </ul>
-        </div>
-        <div>
-          <label className="inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" className="sr-only peer" />
-            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 dark:peer-focus:ring-pink-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-800"></div>
-            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-white">
-              Enable Location
-            </span>
-          </label>
-        </div>
-      </div>
-    </>
-  );
-};
+//   // const toggleModal = () => {
+//   //   setShowModal(!showModal);
+//   // };
+// >>>>>>> master
+//   return (
+//     <>
 
-export default ProfileSideBar;
+//       {/* <!-- SideBar --> */}
+//       <div
+//         id="view"
+//         class="h-full flex flex-row"
+//         x-data="{ sidenav: true }"
+//       >
+//         <div
+//           id="sidebar"
+//           class="bg-white h-full md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
+//           x-show="sidenav"
+//         >
+//           <div class="py-5 px-1">
+
+//             <div id="menu" class="flex flex-col gap-2 ">
+//               <div className='w-32 h-14 mx-auto'>
+//                 <Image src={Img} className='object-cover' alt="" />
+
+//               </div>
+
+//               <div className='py-5 flex flex-col gap-1'>
+//                 <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><MdOutlineInterests size={22} /> Interest</Link>
+
+//                 <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><GrGroup size={22} /> Groups</Link>
+
+//                 <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><LuPartyPopper size={22} /> Party</Link>
+
+//                 <Link href={'/'} className='font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2'><LiaUserFriendsSolid size={22} /> Friends</Link>
+//               </div>
+
+//               <Image src={sidebar_img} />
+//             </div>
+
+//           </div>
+//         </div>
+// <<<<<<< master
+//       </div>
+// =======
+
+//       </div >
+// >>>>>>> master
+//     </>
+//   );
+// };
+
+// export default ProfileSideBar;

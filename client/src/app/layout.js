@@ -15,6 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+<<<<<<< HEAD
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
@@ -31,6 +32,11 @@ export default function RootLayout({ children }) {
         >
           {children}{" "}
         </ThemeProvider>
+=======
+    <html lang="en">
+      <body className={`${inter.className} overflow-x-hidden bg-[#EDEDED]`}>
+        {children}
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
       </body>
     </html>
   );

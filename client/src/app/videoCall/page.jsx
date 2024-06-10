@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import AgoraRTC, { createClient } from "agora-rtc-sdk-ng";
 import VideoPlayer from "@/components/VideoPlayer";
 const APP_ID = "03d44a1c16a54c0fb0d2ad170a2fd29e";
-const TOKEN =
-  "007eJxTYHC3cdngPDd9XueJACff03ExrAmLIo/NUmRPqhP5p8LsuESBwcA4xcQk0TDZ0CzR1CTZIC3JIMUoMcXQ3CDRKC3FyDJ14pSEtIZARobpRZIMjFAI4rMwlKQWlzAwAAB4HByx";
-const CHANNEL = "test";
+const TOKEN = "007eJxTYOAufbdSXf9Vc8Mt113feDyb9lz12VGjnTbp6IbMNl93dXsFBgPjFBOTRMNkQ7NEU5Nkg7QkgxSjxBRDc4NEo7QUI8tUu9eJaQ2BjAynbrewMjJAIIjPyZBb6ZyRmJeXmsPAAAAV/CJB";
+const CHANNEL = "myChannel";
 
 AgoraRTC.setLogLevel(4);
 

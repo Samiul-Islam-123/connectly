@@ -2,10 +2,18 @@
   @tailwind components;
   @tailwind utilities;
 
+<<<<<<< HEAD
   @layer base {
     :root {
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
+=======
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
 
       --card: 0 0% 100%;
       --card-foreground: 222.2 84% 4.9%;
@@ -66,6 +74,7 @@
     }
   }
 
+<<<<<<< HEAD
   @layer base {
     * {
       @apply border-border;
@@ -74,3 +83,131 @@
       @apply bg-background text-foreground;
     }
   }
+=======
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff578e;
+  border-radius: 10px;
+}
+
+/* grid layout */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+}
+
+.story-card {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sidebar-left {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.sidebar-right {
+  grid-column: 3;
+  grid-row: 1 / -1;
+}
+
+.feed-section {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Card */
+.infocardContainer * {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 300;
+}
+
+.infocardContainer {
+  display: flex;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  background: rgb(0, 159, 255);
+  background: linear-gradient(
+    121deg,
+    rgba(255, 255, 255, 0) 13%,
+    rgba(0, 159, 255, 1) 100%
+  );
+  transition: all 100ms ease-in;
+  margin: auto;
+  margin-top: 100px;
+}
+.infocardContainer:hover {
+  width: 300px;
+  border-radius: 100px 10px 100px 100px;
+  transition: all 1s ease-out;
+}
+
+.infocardContainer div {
+  color: white;
+  flex-shrink: 1;
+  width: 100%;
+}
+.infocardContainer div * {
+  display: flex;
+  overflow: hidden;
+  text-overflow: hidden;
+  color: white;
+  white-space: nowrap;
+  width: 0;
+  height: auto;
+  transition: all 100ms ease-in;
+}
+.infocardContainer:hover div * {
+  display: flex;
+  visibility: visible;
+  transition: all 1s ease-out;
+  transition-delay: 100ms;
+  width: 100%;
+  height: auto;
+}
+
+.infocardContainer #main,
+.infocardContainer #main img {
+  height: 200px;
+  width: 110px;
+  padding-right: 10px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.infocardContainer #main img {
+  height: 100px;
+  width: 100px;
+  transition: none;
+  position: relative;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83

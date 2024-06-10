@@ -43,12 +43,12 @@ exports.register = async (req, res, next) => {
     const message = `Dear ${name},\n\nWelcome to Connectly! Please verify your email address using the following OTP:\n\n${otp}\n\nThis OTP is valid for 10 minutes.\n\nThank you,\nTeam Connectly`;
 
     await sendEmail(email, subject, message);
-
     res
       .status(201)
       .json({ message: "OTP sent to your email. Please verify your account." });
   } catch (err) {
-    console.error(err.message);
+    console.log("Error");
+    console.error(err);
     res.status(500).send("Server error");
   }
 };
@@ -73,21 +73,25 @@ exports.login = async (req, res, next) => {
     if (!user.isVerified) {
       return res
         .status(400)
-        .json({ message: "Please verify your email first" });
+        .json({ message: "Please verify your email first",
+          requiresVerification : true
+         });
     }
 
     const payload = {
       user: {
         id: user.id,
+        name: user.name,
+        email: user.email,
       },
     };
-
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "30d" },
       (err, token) => {
         if (err) throw err;
+        res.header("x-auth-token", token);
         res.json({ token });
       }
     );
@@ -130,6 +134,7 @@ exports.authenticate = (req, res, next) => {
   const token = req.header("x-auth-token");
 
   if (!token) {
+    console.log("NOr token")
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
@@ -138,6 +143,7 @@ exports.authenticate = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
+    console.log("Token not valid")
     res.status(401).json({ message: "Token is not valid" });
   }
 };

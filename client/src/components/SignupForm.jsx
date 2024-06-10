@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Button } from "./ui/button";
@@ -6,9 +7,35 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const apiURL = process.env.NEXT_PUBLIC_API_URL;
+  
+    if (passwordValue === confirmPasswordValue) {
+      const requestData = {
+        name: nameValue,
+        email: emailValue,
+        password: passwordValue
+      };
+  
+      //console.log("Request Data:", requestData);
+  
+      try {
+        const response = await axios.post(`${apiURL}/api/auth/register`, requestData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        alert(response.data.message)
+      } catch (error) {
+        console.error("Error response:", error.response);
+        alert(`Error: ${error.response.data.message}`);
+      }
+    } else {
+      alert("Please confirm your password");
+    }
   };
+  
   return (
     <div className="selection:bg-primary-500 selection:text-white">
       <div className="flex justify-center items-center">
