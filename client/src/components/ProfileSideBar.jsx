@@ -5,7 +5,6 @@ import { SiEventstore } from "react-icons/si";
 import { TiGroup } from "react-icons/ti";
 import { FaUserFriends } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import EditProfileModal from "./EditProfileModal";
 const ProfileSideBar = ({ setRequest, request }) => {
   return (
     <>
