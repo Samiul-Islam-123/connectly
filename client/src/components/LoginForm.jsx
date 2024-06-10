@@ -35,6 +35,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
         Cookies.set("token", responseData.token, {
           expires: 29,
         });
+        localStorage.setItem("token", responseData.token);
         router.push("/");
       } else {
         alert(responseData.message || "Login failed");
