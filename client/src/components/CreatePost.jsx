@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { video, Story, photo, audio, text } from "../app/assets";
+import Cookies from "js-cookie";
 
 const CreatePost = () => {
   const [content, setContent] = useState("");
@@ -39,7 +40,7 @@ const CreatePost = () => {
           method: "POST",
           body: formData,
           headers: {
-            "x-auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY2MTMzN2IxYzA1ZWExMTNiZmM0ZTYwIiwibmFtZSI6IkFkYXJzaCBKaGEiLCJlbWFpbCI6ImFkYXJzaGpoYXhpZkBnbWFpbC5jb20ifSwiaWF0IjoxNzE3OTE1Mjc4LCJleHAiOjE3MTc5MTg4Nzh9.NXuXz99TsAjGbUIL0XYL8aYeNvZgTifYaz17TzkDqEA`,
+            "x-auth-token": `${Cookies.get("token")}`,
           },
         }
       );
