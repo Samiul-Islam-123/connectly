@@ -11,7 +11,7 @@ const Chat = () => {
     <div className="flex">
       <ChatSideBar />
       <div className="h-screen w-full flex flex-col">
-        <div className="w-full h-[10vh] p-4 flex items-center justify-between bg-primary-500">
+        <div className="w-full h-[10vh] p-4 flex items-center justify-between bg-primary">
           <div className="flex items-center gap-2">
             <img
               className="h-12 w-12 bg-white  rounded-full"
@@ -28,9 +28,9 @@ const Chat = () => {
             <FaVideo />
           </div>
         </div>
-        <div className="w-full h-[80vh] bg-primary-300"></div>
-        <form className="flex items-center w-full h-[10vh] gap-2 bg-primary-200 p-2">
-          <FaMicrophone className="text-2xl text-primary-500" />
+        <div className="w-full h-[80vh] bg-primary"></div>
+        <form className="flex items-center w-full h-[10vh] gap-2 bg-primary p-2">
+          <FaMicrophone className="text-2xl text-primary" />
           <input
             className="w-full border rounded-full py-2 px-4 text-black"
             type="text"

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-
+import { Button } from "./ui/button";
 const SignupForm = ({ setIsAnimated, isAnimated }) => {
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
@@ -53,9 +53,9 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
               <h1 className="text-5xl font-bold text-primary-600">
                 Create account
               </h1>
-              <button className="my-6 p-4  uppercase rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer">
-                <FaGoogle className="text-2xl" /> Sign Up With Google
-              </button>
+              <Button className="my-6   uppercase rounded-lg  text-secondary font-semibold text-center flex items-center justify-center gap-2 w-full ">
+                <FaGoogle className="text-2xl" /> Sign In With Google
+              </Button>
               <div className="w-full text-primary-600 flex flex-row before:flex-1 before:border before:border-primary-500 before:m-auto after:flex-1 after:border after:border-primary-500 after:m-auto before:mr-3 after:ml-3">
                 OR CONTINUE WITH
               </div>
@@ -65,7 +65,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                     id="name"
                     name="name"
                     type="text"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="Full Name"
                     required
                     value={nameValue}
@@ -83,7 +83,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                     id="email"
                     name="email"
                     type="email"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="example@gmail.com"
                     required
                     value={emailValue}
@@ -101,7 +101,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                     id="password"
                     type="password"
                     name="password"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="Password"
                     required
                     value={passwordValue}
@@ -119,7 +119,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                     id="re-password"
                     type="password"
                     name="re-enter password"
-                    className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-primary-600"
+                    className="peer h-10 w-full border-b-2 border-primary text-primary placeholder-transparent focus:outline-none focus:border-primary-600"
                     placeholder="Re-Enter Password"
                     required
                     value={confirmPasswordValue}
@@ -133,24 +133,23 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                   </label>
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  className="mt-10 px-8 py-4 uppercase rounded-full bg-primary-600 hover:bg-primary-500 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer"
+                  className="mt-10 uppercase  bg-primary font-semibold text-center  w-full"
                 >
                   Sign Up
-                </button>
+                </Button>
               </form>
               <div className="flex md:hidden gap-2 items-center justify-center my-4">
                 <h1 className="text-primary-500">Already have an Account?</h1>
-                <button
-                  type="button"
-                  className="text-primary-500 transition-transform ease-in"
+                <Button
+                  className=" transition-transform ease-in"
                   onClick={(e) => {
                     setIsAnimated(!isAnimated);
                   }}
                 >
                   Sign In
-                </button>
+                </Button>
               </div>
             </div>
           </div>

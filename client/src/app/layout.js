@@ -1,7 +1,12 @@
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -10,9 +15,28 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+<<<<<<< HEAD
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        {" "}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}{" "}
+        </ThemeProvider>
+=======
     <html lang="en">
       <body className={`${inter.className} overflow-x-hidden bg-[#EDEDED]`}>
         {children}
+>>>>>>> 849104e0f466f8c7ecc2195d8ca053065ff05c83
       </body>
     </html>
   );
