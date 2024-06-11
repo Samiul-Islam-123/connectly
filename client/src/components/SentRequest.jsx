@@ -1,23 +1,27 @@
+"use client";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { FaClock } from "react-icons/fa";
 
 const SentRequest = (props) => {
-  console.log(props)
+  console.log(props);
   const [profileDetails, setProfileDetails] = useState({});
 
   async function getProfileDetails(userId) {
-    const token = Cookies.get('token'); // Replace with the actual token
+    const token = Cookies.get("token"); // Replace with the actual token
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/profileDetails', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
-          'user-id': userId
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_API_URL + "/api/profileDetails",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+            "user-id": userId,
+          },
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -26,7 +30,7 @@ const SentRequest = (props) => {
       const profileDetails = await response.json();
       return profileDetails;
     } catch (error) {
-      console.error('Error fetching profile details:', error);
+      console.error("Error fetching profile details:", error);
       return null;
     }
   }
@@ -49,8 +53,11 @@ const SentRequest = (props) => {
   return (
     <>
       {props.sentRequestData && props.sentRequestData.length > 0 ? (
-        props.sentRequestData.map(item => (
-          <div key={item._id} className="flex items-center justify-between p-5 text-black">
+        props.sentRequestData.map((item) => (
+          <div
+            key={item._id}
+            className="flex items-center justify-between p-5 text-black"
+          >
             <div className="flex items-center gap-2">
               <img
                 src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
@@ -59,7 +66,9 @@ const SentRequest = (props) => {
               />
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-lg font-bold">{profileDetails[item._id]?.name || "Loading..."}</h1>
+                  <h1 className="text-lg font-bold">
+                    {profileDetails[item._id]?.name || "Loading..."}
+                  </h1>
                   <h2>@{profileDetails[item._id]?.username || "Loading..."}</h2>
                 </div>
                 <p className="text-sm">

@@ -73,9 +73,10 @@ exports.login = async (req, res, next) => {
     if (!user.isVerified) {
       return res
         .status(400)
-        .json({ message: "Please verify your email first",
-          requiresVerification : true
-         });
+        .json({
+          message: "Please verify your email first",
+          requiresVerification: true,
+        });
     }
 
     const payload = {
@@ -129,12 +130,11 @@ exports.verifyOtp = async (req, res, next) => {
   }
 };
 
-// Middleware to protect routes
 exports.authenticate = (req, res, next) => {
   const token = req.header("x-auth-token");
 
   if (!token) {
-    console.log("NOr token")
+    console.log("NOr token");
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
@@ -143,7 +143,7 @@ exports.authenticate = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
-    console.log("Token not valid")
+    console.log("Token not valid");
     res.status(401).json({ message: "Token is not valid" });
   }
 };

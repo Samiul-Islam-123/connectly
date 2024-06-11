@@ -10,6 +10,7 @@ const fetchAllNotifications = async (req, res) => {
       return res.status(200).json(notifications);
     }
     const notifications = await Notification.find({ user: req.user.id })
+      .populate("user")
       .sort({ createdAt: -1 })
       .limit(20);
     res.status(200).json(notifications);

@@ -11,7 +11,6 @@ import {
 export default function Home() {
   return (
     <>
-
       <div className="grid-container relative">
         <div className="p-5 flex items-center gap-5 story-card">
           <StoryCard />
