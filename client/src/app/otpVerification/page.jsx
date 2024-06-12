@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
@@ -21,46 +22,68 @@ const OtpVerification = () => {
           <div>
             <form action="" method="post">
               <div class="flex flex-col space-y-16">
-                <div class="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+                <div class="flex flex-row items-center justify-between mx-auto w-full max-w-xs space-x-2">
                   <div class="w-16 h-16 ">
                     <input
-                      class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
                       type="text"
                       name=""
                       id=""
+                      maxLength={1}
                     />
                   </div>
                   <div class="w-16 h-16 ">
                     <input
-                      class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
                       type="text"
                       name=""
                       id=""
+                      maxLength={1}
                     />
                   </div>
                   <div class="w-16 h-16 ">
                     <input
-                      class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
                       type="text"
                       name=""
                       id=""
+                      maxLength={1}
                     />
                   </div>
                   <div class="w-16 h-16 ">
                     <input
-                      class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
                       type="text"
                       name=""
                       id=""
+                      maxLength={1}
+                    />
+                  </div>
+                  <div class="w-16 h-16 ">
+                    <input
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      type="text"
+                      name=""
+                      id=""
+                      maxLength={1}
+                    />
+                  </div>
+                  <div class="w-16 h-16 ">
+                    <input
+                      class="w-full h-full flex flex-col items-center justify-center text-center px-3 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-primary-700"
+                      type="text"
+                      name=""
+                      id=""
+                      maxLength={1}
                     />
                   </div>
                 </div>
 
                 <div class="flex flex-col space-y-5">
                   <div>
-                    <button class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-primary-700 border-none text-white text-sm shadow-sm">
+                    <Button class="flex flex-row items-center mx-auto justify-center text-center w-full border rounded-xl outline-none py-5  border-none  text-sm shadow-sm">
                       Verify Account
-                    </button>
+                    </Button>
                   </div>
 
                   <div class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">

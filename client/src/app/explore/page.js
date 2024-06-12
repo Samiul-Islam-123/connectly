@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { RightNav } from "@/components";
+import { RightNav, SideBar } from "@/components";
 import Image from "next/image";
 import { Img, Pic, cover_profile, explore_grid1 } from "../assets";
 import { MdEdit } from "react-icons/md";
@@ -11,6 +11,7 @@ import { GrGroup } from "react-icons/gr";
 import { LuPartyPopper } from "react-icons/lu";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import ImageExplore from "@/components/ImageExplore";
+import Card from "@/components/Card";
 
 const page = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,11 +33,14 @@ const page = () => {
   };
 
   const handleSearch = () => {
+    e.preventDefault();
     const filtered = profiles.filter((profile) =>
       profile.interests.includes(searchTerm)
     );
     setFilteredProfiles(filtered);
   };
+
+  console.log(profiles);
 
   return (
     <>
@@ -54,69 +58,36 @@ const page = () => {
         </div>
 
         <div className="sidebar-left">
-          <div id="view" className="h-full flex flex-row">
-            <div
-              id="sidebar"
-              className="bg-white h-fit md:block shadow-xl px-3 w-30 md:w-72 overflow-x-hidden transition-transform duration-300 ease-in-out rounded-ee-md"
-            >
-              <div className="py-5 px-1">
-                <div id="menu" className="flex flex-col gap-2 ">
-                  <div className="w-32 h-14 mx-auto">
-                    <Image src={Img} className="object-cover" alt="" />
-                  </div>
-
-                  <div className="py-5 flex flex-col gap-1">
-                    <Link
-                      href={"/"}
-                      className="font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2"
-                    >
-                      <MdOutlineInterests size={22} /> Interest
-                    </Link>
-
-                    <Link
-                      href={"/"}
-                      className="font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2"
-                    >
-                      <GrGroup size={22} /> Groups
-                    </Link>
-
-                    <Link
-                      href={"/"}
-                      className="font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2"
-                    >
-                      <LuPartyPopper size={22} /> Party
-                    </Link>
-
-                    <Link
-                      href={"/"}
-                      className="font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2"
-                    >
-                      <LiaUserFriendsSolid size={22} /> Friends
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <SideBar />
         </div>
         <div className="sidebar-right py-2">
           <RightNav />
         </div>
 
-        <div className="feed-section mx-5">
+        <div className="feed-section mx-5 h-[30rem]">
           <div className="flex items-center justify-center flex-col px-6 gap-5">
             {/* Filter */}
             <div className="w-[44rem] bg-white h-full rounded-lg px-4 py-2 flex items-center justify-between">
               <div className=" flex items-center bg-[#FFEDED] px-2 py-1 rounded-md">
                 <CiSearch size={22} />
-                <input
-                  type="text"
-                  placeholder="Search for vibe, friend or interest..."
-                  className="px-3 py-1 w-[18rem] bg-transparent focus:outline-none placeholder:text-gray-600"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <form onSubmit={handleSearch}>
+                  <input
+                    type="text"
+                    placeholder="Search for vibe, friend or interest..."
+                    className="px-3 py-1 w-[18rem] bg-transparent focus:outline-none placeholder:text-gray-600"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </form>
               </div>
+
+              {/* Not given in design but can be shown in small screens */}
+              {/* <button
+                onClick={handleSearch}
+                className="bg-pink-100 py-2 px-4 rounded-md"
+              >
+                Search
+              </button> */}
 
               <div className="flex items-center relative">
                 <div className="text-gray-600 font-medium mr-4">
@@ -182,17 +153,11 @@ const page = () => {
                   </div>
                 )}
               </div>
-              <button
-                onClick={handleSearch}
-                className="bg-pink-100 py-2 px-4 rounded-md"
-              >
-                Search
-              </button>
             </div>
 
             {/* Profiles */}
-            <div className="py-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredProfiles.map((profile) => (
+            <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* {filteredProfiles.map((profile) => (
                 <div
                   key={profile.user}
                   className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center"
@@ -214,7 +179,10 @@ const page = () => {
                     <p className="text-sm text-gray-600">{profile.location}</p>
                   </Link>
                 </div>
-              ))}
+              ))} */}
+              {filteredProfiles.map((profile) => {
+                return <Card profile={profile} />;
+              })}
             </div>
           </div>
         </div>

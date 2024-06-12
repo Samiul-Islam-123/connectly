@@ -34,7 +34,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
         alert(response.data.message);
 
         // Redirect to OTP page
-        router.push("/otp"); // Change this to your OTP page route
+        router.push("/otpVerification"); // Change this to your OTP page route
       } catch (error) {
         console.error("Error response:", error.response);
         alert(`Error: ${error.response.data.message}`);

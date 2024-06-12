@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-
 const LoginForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -58,13 +57,11 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
-              <h1 className="text-5xl font-bold text-primary-600">
-                Welcome back!
-              </h1>
-              <button className="my-6 p-4 uppercase rounded-lg bg-primary-600 hover:bg-primary-500 text-white font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer">
+              <h1 className="text-5xl font-bold text-primary">Welcome back!</h1>
+              <Button className="my-6 p-4 uppercase rounded-lg bg-primary hover:bg-primary text-white font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer">
                 <FaGoogle className="text-2xl" /> Sign In With Google
               </Button>
-              <div className="w-full text-primary flex flex-row before:flex-1 before:border before:border-primary before:m-auto after:flex-1 after:border after:border-primary-500 after:m-auto before:mr-3 after:ml-3">
+              <div className="w-full text-primary flex flex-row before:flex-1 before:border before:border-primary before:m-auto after:flex-1 after:border after:border-primary after:m-auto before:mr-3 after:ml-3">
                 OR CONTINUE WITH
               </div>
               <form className="mt-8" onSubmit={submitHandler}>
@@ -119,7 +116,7 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
                 Forgot your password?
               </Link>
               <div className="flex md:hidden gap-2 items-center justify-center my-4">
-                <button
+                <Button
                   type="button"
                   className="text-primary-500 transition-transform ease-in"
                   onClick={() => {
