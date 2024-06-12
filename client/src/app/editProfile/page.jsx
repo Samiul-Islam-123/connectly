@@ -1,19 +1,18 @@
 "use client";
-
+import { RightNav, SideBar } from "@/components";
 import BlockList from "@/components/BlockList";
 import EditProfileModal from "@/components/EditProfileModal";
-import LeftNavBar from "@/components/LeftNavBar";
 import NotificationEdit from "@/components/NotificationEdit";
-import RightNavBar from "@/components/RightNavBar";
 import Security from "@/components/Security";
 import React, { useState } from "react";
 
-const EditProfile = () => {
-  const [activeTab, setActiveTab] = useState("edit");
+const page = () => {
+  const [activeTab, setActiveTab] = useState("security");
+  
   return (
     <div className="flex justify-between p-5 rounded-lg">
       <div>
-        <LeftNavBar />
+        <SideBar />
       </div>
       <div className="flex flex-col h-screen w-[50vw] mx-auto bg-secondary rounded-xl ">
         <div className="w-full h-[10vh] p-5">
@@ -71,10 +70,10 @@ const EditProfile = () => {
         </div>
       </div>
       <div>
-        <RightNavBar />
+        <RightNav />
       </div>
     </div>
   );
 };
 
-export default EditProfile;
+export default page;

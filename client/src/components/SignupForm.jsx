@@ -46,7 +46,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
   };
 
   return (
-    <div className="selection:bg-primary-500 selection:text-white">
+    <div className="selection:bg-primary selection:text-white">
       <div className="flex justify-center items-center">
         <div className="p-8 flex-1">
           <div className="mx-auto overflow-hidden">
@@ -142,7 +142,7 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
                 </Button>
               </form>
               <div className="flex md:hidden gap-2 items-center justify-center my-4">
-                <h1 className="text-primary-500">Already have an Account?</h1>
+                <h1 className="text-primary">Already have an Account?</h1>
                 <Button
                   className=" transition-transform ease-in"
                   onClick={(e) => {

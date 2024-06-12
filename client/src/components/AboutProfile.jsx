@@ -1,30 +1,30 @@
 import React from 'react'
 
-const AboutProfile = () => {
+const AboutProfile = ({ profileData }) => {
 
-  const interests = [
-    { name: 'Traveling' },
-    { name: 'Cooking' },
-    { name: 'Yoga' },
-    { name: 'Photography' },
-    { name: 'Gardening' },
-    { name: 'Dancing' },
-    { name: 'Camping' },
-    { name: 'Volunteering' },
-    { name: 'Chess' },
-    { name: 'Writing' },
-    { name: 'Pottery' },
-    { name: 'Chess' },
-    { name: 'Meditation' },
-    { name: 'Video Games' },
-    { name: 'Calligraphy' },
-    { name: 'Running' },
-  ];
+  // const interests = [
+  //   { name: 'Traveling' },
+  //   { name: 'Cooking' },
+  //   { name: 'Yoga' },
+  //   { name: 'Photography' },
+  //   { name: 'Gardening' },
+  //   { name: 'Dancing' },
+  //   { name: 'Camping' },
+  //   { name: 'Volunteering' },
+  //   { name: 'Chess' },
+  //   { name: 'Writing' },
+  //   { name: 'Pottery' },
+  //   { name: 'Chess' },
+  //   { name: 'Meditation' },
+  //   { name: 'Video Games' },
+  //   { name: 'Calligraphy' },
+  //   { name: 'Running' },
+  // ];
 
   const personalInfo = [
     {
       heading: 'Name',
-      details: 'William Smith',
+      details: profileData.user.name,
     },
     {
       heading: 'Birthday',
@@ -40,7 +40,7 @@ const AboutProfile = () => {
     },
     {
       heading: 'Email Address',
-      details: 'debra.holt@example.com',
+      details: profileData.user.email,
     },
     {
       heading: 'Phone Number',
@@ -76,19 +76,19 @@ const AboutProfile = () => {
 
         <div className='flex flex-col gap-1'>
           <p className='text-[#656565] text-sm'>Bio</p>
-          <p className='text-xs'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci reprehenderit.</p>
+          <p className='text-xs'>{profileData.bio}</p>
         </div>
 
         <div className='flex flex-col gap-2'>
           <h1 className="text-[#656565] text-sm">Interest</h1>
 
-          <div className="grid grid-cols-7 gap-2">
-            {interests.map((interest) => (
+          <div className="flex flex-wrap gap-2">
+            {profileData.interests.map((interest, index) => (
               <p
-                key={interest.name}
+                key={index}
                 className={`rounded-full text-xs text-[#656565] border-[1px] border-[#F45044] px-2 py-1 flex items-center justify-center`}
               >
-                {interest.name}
+                {interest}
               </p>
             ))}
           </div>

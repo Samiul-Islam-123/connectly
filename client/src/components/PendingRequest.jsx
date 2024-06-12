@@ -98,7 +98,7 @@ const PendingRequest = (props) => {
                   const responseData = await response.json();
                   console.log(responseData);
                 }}
-                className="bg-primary-500 font-bold p-2 rounded-lg"
+                className="bg-primary font-bold p-2 rounded-lg"
               >
                 Accept
               </button>

@@ -61,6 +61,7 @@ const MediaPost = () => {
                                     <Image
                                         className="h-72 w-full rounded"
                                         src={photo}
+                                        width={100}
                                         alt=""
                                     />
                                 </div>

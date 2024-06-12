@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import AvatarComponent from "@/components/AvatarComponent";
-import LeftNavBar from "@/components/LeftNavBar";
-import RightNavBar from "@/components/RightNavBar";
 import { Button } from "@/components/ui/button";
+import { RightNav, SideBar } from "@/components";
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
@@ -62,7 +61,7 @@ const Notification = () => {
   return (
     <div className="flex justify-between p-5 rounded-lg">
       <div>
-        <LeftNavBar />
+        <SideBar />
       </div>
       <div className="bg-secondary w-[50vw] h-screen rounded-xl p-5 overflow-y-auto">
         <h1 className="text-xl font-semibold">All Notifications</h1>
@@ -105,7 +104,7 @@ const Notification = () => {
         </div>
       </div>
       <div>
-        <RightNavBar />
+        <RightNav />
       </div>
     </div>
   );

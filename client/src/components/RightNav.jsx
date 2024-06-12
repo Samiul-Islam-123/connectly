@@ -7,6 +7,8 @@ import {
   IoChatbubbleEllipsesOutline,
   IoNotificationsOutline,
 } from "react-icons/io5";
+import AvatarComponent from "./AvatarComponent";
+import ThemeToggleMode from "./ThemeToggleMode";
 
 const RightNav = () => {
   return (
@@ -19,7 +21,7 @@ const RightNav = () => {
       >
         <div
           id="sidebar"
-          className="bg-white h-72 md:block shadow-xl px-3 w-[14rem] overflow-x-hidden transition-transform duration-300 ease-in-out rounded-lg"
+          className="bg-secondary h-fit md:block shadow-xl px-3 w-[14rem] overflow-x-hidden transition-transform duration-300 ease-in-out rounded-lg"
           x-show="sidenav"
         >
           <div className="py-3 px-1">
@@ -29,8 +31,10 @@ const RightNav = () => {
                   href={"/profile"}
                   className="font-medium text-gray-700 py-2 px-2 hover:bg-[#FF578E] hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out hover:no-underline flex items-center gap-2"
                 >
-                  <Image src={Pic} className="w-12 h-12 rounded-full" />
-                  <span>Profile</span>
+                  <AvatarComponent
+                    imgSrc={"https://github.com/shadcn.png"}
+                    name={"fardeen"}
+                  />                  <span>Profile</span>
                 </Link>
               </div>
 
@@ -62,6 +66,9 @@ const RightNav = () => {
                 <IoNotificationsOutline size={22} /> Notification
               </Link>
             </div>
+          </div>
+          <div className="py-5">
+            <ThemeToggleMode />
           </div>
         </div>
       </div>

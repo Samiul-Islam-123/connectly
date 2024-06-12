@@ -8,7 +8,6 @@ export { default as ProfileSideBar } from "./ProfileSideBar";
 export { default as Image2Post } from "./Image2Post";
 export { default as ImageExplore } from "./ImageExplore";
 export { default as ImagePost } from "./ImagePost";
-export { default as LeftNavBar } from "./LeftNavBar";
 export { default as LeftOverlayContent } from "./LeftOverlayContent";
 export { default as LoginForm } from "./LoginForm";
 export { default as SignupForm } from "./SignupForm";
