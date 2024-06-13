@@ -1,164 +1,195 @@
-// "use client";
-// import PendingRequest from "@/components/PendingRequest";
-// import ProfileSideBar from "@/components/ProfileSideBar";
-// import SentRequest from "@/components/SentRequest";
-// import Cookies from "js-cookie";
-// import React, { useEffect, useLayoutEffect, useState } from "react";
+"use client";
+import { Post, RightNav, SideBar } from "@/components";
+import { Img, Pic, cover_profile } from "../assets";
+import Link from "next/link";
+import { MdOutlineInterests } from "react-icons/md";
+import { GrGroup } from "react-icons/gr";
+import { LuPartyPopper } from "react-icons/lu";
+import { LiaUserFriendsSolid } from "react-icons/lia";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import TimeLine from "@/components/TimeLine";
+import AboutProfile from "@/components/AboutProfile";
+import MediaPost from "@/components/MediaPost";
+import Cookies from "js-cookie";
 
-// const Profile = () => {
-//   const [request, setRequest] = useState(false);
-//   const [activeTab, setActiveTab] = useState();
-//   const [profileData, setProfileData] = useState(null)
+const Profile = () => {
+  const [request, setRequest] = useState(false);
+  const [activeTab, setActiveTab] = useState("timeline");
+  const [profileData, setProfileData] = useState(null);
 
-//   async function fetchProfileData(){
-//     const token = Cookies.get('token');
-//     console.log("My Token : "+token)
-//     const apiURL = process.env.NEXT_PUBLIC_API_URL;
-//     const response = await fetch(`${apiURL}/api/profile/me`,{
-//       method : 'GET',
-//       headers : {
-//         'Content-Type' : 'application/json',
-//         'x-auth-token' : `${token}`
-//       }
-//     })
+  async function fetchProfileData() {
+    const token = Cookies.get("token");
+    const apiURL = process.env.NEXT_PUBLIC_API_URL;
+    const response = await fetch(`${apiURL}/api/profile/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": `${token}`,
+      },
+    });
 
-//     const responseData = await response.json();
-//     if(response.status === 200){
-//       setProfileData(responseData)
-//       console.log(responseData)
-//     }
-//   }
+    const responseData = await response.json();
+    if (response.status === 200) {
+      setProfileData(responseData);
+    }
+  }
 
-//   useEffect(()=>{
-//     fetchProfileData();
-//   },[])
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
-//   useLayoutEffect(() => {
-//     setActiveTab(request ? "pendingRequests" : "followers");
-//   }, [request]);
-//   return (
-//     <div className="flex">
-//       {
-//         profileData && (<>
-//         <ProfileSideBar setRequest={setRequest} request={request} />
-//       <div className="h-screen w-full bg-gray-200 overflow-y-auto">
-//         <div className=" w-full    bg-white  shadow-lg    transform   duration-200 easy-in-out">
-//           <div className=" h-32 overflow-hidden">
-//             <img
-//               className="w-full"
-//               src="https://images.unsplash.com/photo-1632377082368-66155ad702d8?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//               alt=""
-//             />
-//           </div>
-//           <div className="flex justify-center px-5  -mt-12">
-//             <img
-//               className="h-32 w-32 bg-white p-2 rounded-full   "
-//               //src="https://images.unsplash.com/photo-1715615751025-e7ebe7f47eea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//               src={profileData.profilePicture}
-//               alt=""
-//             />
-//           </div>
-//           <div className=" ">
-//             <div className="text-center px-14">
-//               <h2 className="text-gray-800 text-3xl font-bold">
-//                 {profileData.user.name}
-//               </h2>
-//               {/* <a
-//                 className="text-gray-400 mt-2 hover:text-blue-500"
-//                 href="#"
-//                 target="BLANK()"
-//               >
-//                 @fardeen_19
-//               </a> */}
-//               <p className="mt-2 text-gray-500 text-sm">
-// <<<<<<< master
-//                 Lorem Ipsum is simply dummy text of the printing and typesetting
-//                 industry. Lorem Ipsum has been the industry standard dummy text
-//                 ever since the 1500s,{" "}
-// =======
-//                 {profileData.bio}
-// >>>>>>> master
-//               </p>
-//             </div>
-//             <hr className="mt-6" />
-//             {!request && (
-//               <div className="flex  bg-gray-50 text-black">
-//                 <div
-//                   className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
-//                   onClick={() => setActiveTab("posts")}
-//                 >
-//                   <p>
-//                     <span className="font-semibold">10</span> Posts
-//                   </p>
-//                 </div>
-//                 <div className="border"></div>
-//                 <div
-//                   className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
-//                   onClick={() => setActiveTab("followers")}
-//                 >
-//                   <p>
-//                     <span className="font-semibold">2.5 k</span> Followers
-//                   </p>
-//                 </div>
-//                 <div className="border"></div>
-//                 <div
-//                   className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer"
-//                   onClick={() => setActiveTab("following")}
-//                 >
-//                   <p>
-//                     {" "}
-//                     <span className="font-semibold">2.0 k </span> Following
-//                   </p>
-//                 </div>
-//               </div>
-//             )}
-//             {request && (
-//               <div className="flex  bg-gray-50 text-black">
-//                 <div
-//                   className={`text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer ${
-//                     activeTab === "pendingRequests" &&
-//                     "border-b-2 border-b-black"
-//                   }`}
-//                   onClick={() => setActiveTab("pendingRequests")}
-//                 >
-//                   <p>
-//                     <span className="font-semibold">15</span> Pending Requests
-//                   </p>
-//                 </div>
-//                 <div className="border"></div>
-//                 <div
-//                   className={`text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer ${
-//                     activeTab === "sentRequests" && "border-b-2 border-b-black"
-//                   }`}
-//                   onClick={() => setActiveTab("sentRequests")}
-//                 >
-//                   <p>
-//                     <span className="font-semibold">2</span> Sent Requests
-//                   </p>
-//                 </div>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//         {activeTab === "followers" && <div>Followers</div>}
-//         {activeTab === "following" && <div>Following</div>}
-//         {activeTab === "posts" && <div>Posts</div>}
-//         {activeTab === "pendingRequests" && (
-//           <div className="w-2/3 mx-auto h-auto">
-//             <PendingRequest myData = {profileData} pendingRequestData = {profileData.friendRequestsReceived}/>
-//           </div>
-//         )}
-//         {activeTab === "sentRequests" && (
-//           <div className="w-2/3 mx-auto h-auto">
-//             <SentRequest sentRequestData = {profileData.friendRequestsSent}/>
-//           </div>
-//         )}
-//       </div>
-//         </>)
-//       }
-      
-//     </div>
-//   );
-// };
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
-// export default Profile;
+  if (!profileData) {
+    return <div>Loading...</div>;
+  }
+
+
+  return (
+    <>
+
+      <div className="grid-container relative">
+        {/* Image */}
+        <div className="px-5 py-2 flex items-center story-card w-[50rem]">
+          <div className="bg-white rounded-2xl h-[18rem]">
+            <Image src={cover_profile} className="h-[8rem]" />
+            <div className="flex items-center h-[8rem]">
+              <Image src={profileData.profilePicture} width={100} height={50} className="w-[10rem] h-[10rem] relative left-5 bottom-10 rounded-full" />
+
+              <div className="flex justify-between px-10 w-full">
+                <div className="flex flex-col gap-1">
+                  <h1 className="font-semibold text-lg">{profileData.user.name}</h1>
+                  <div className="flex flex-col ">
+                    <p className="text-sm text-[#656565]">Bio</p>
+                    <p className="text-xs w-[15rem]">{profileData.bio}</p>
+                  </div>
+                </div>
+                {!request && (
+                  <div className="flex items-center gap-6 mb-14 text-[#656565]">
+                    <div className="flex flex-col">
+                      <p className="font-medium ">Posts</p>
+                      <p className="font-medium ">55</p>
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="font-medium ">Friends</p>
+                      <p className="font-medium ">12k</p>
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="font-medium ">Followers</p>
+                      <p className="font-medium ">57k</p>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 px-4">
+              <button
+                onClick={() => handleTabChange('timeline')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'timeline'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                TimeLine
+              </button>
+              <button
+                onClick={() => handleTabChange('about')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'about'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                About
+              </button>
+              <button
+                onClick={() => handleTabChange('media')}
+                className={`font-medium hover:text-[#F45044]  ${activeTab === 'media'
+                  ? 'border-b-[1px] border-[#F45044] text-[#F45044] font-semibold '
+                  : 'font-medium'
+                  }`}
+              >
+                Media
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="sidebar-left">
+          {activeTab === 'timeline' && <SideBar views={true} />}
+          {activeTab === 'about' && <SideBar edit={true} />}
+          {activeTab === 'media' && <SideBar edit={true} />}
+        </div>
+        <div className="sidebar-right h-[58rem] flex flex-col gap-6 py-2">
+          <RightNav />
+          <div className="flex flex-col gap-6">
+            <div className="bg-white h-fit w-full px-4 py-3 rounded-lg">
+
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Photos</h3>
+                <p className="border-b-2 border-[#F45044] text-[#F45044] text-sm">See All</p>
+              </div>
+
+              {/* <div>
+                <div class="grid grid-cols-3 gap-3 px-1 py-3">
+                  {sidePhotos.map((sideP, index) => {
+                    return <div key={index} className="">
+                      <Image
+                        className="h-16 w-full rounded"
+                        src={sideP}
+                        alt=""
+                      />
+                    </div>
+                  })}
+
+                </div>
+              </div> */}
+
+            </div>
+            <div className="bg-white h-fit w-full px-4 py-2 rounded-lg">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-medium">Friends</h3>
+                <p className="border-b-2 border-[#F45044] text-[#F45044] text-sm">See All</p>
+              </div>
+              {/* <div class="grid grid-cols-2 gap-3 px-1 py-3">
+                {friendsPhoto.map((fp, index) => {
+                  return <div key={index} className="flex flex-col">
+                    <Image
+                      className="h-20 w-20 rounded"
+                      src={fp.img}
+                      alt=""
+                    />
+                    <p className="text-xs text-[#656565]">{fp.name}</p>
+                  </div>
+                })}
+
+              </div> */}
+            </div>
+
+          </div>
+        </div>
+
+        <div className="feed-section mx-5 mb-5">
+          <div className="flex items-center justify-center flex-col">
+            {/* Images */}
+            <div className="w-full h-full rounded-lg mx-auto">
+              {activeTab === 'timeline' && <TimeLine />}
+              {activeTab === 'about' && <AboutProfile profileData={profileData} />}
+              {activeTab === 'media' && <MediaPost />}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Profile;

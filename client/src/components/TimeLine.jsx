@@ -38,7 +38,7 @@ const TimeLine = () => {
             <div className='flex flex-col gap-5 py-2'>
 
                 {/* Image */}
-                <div className='bg-white w-[750px] h-auto rounded-xl px-5 py-2'>
+                <div className='bg-white w-[760px] h-auto rounded-xl px-5 py-2'>
                     <div className='flex items-center border-b-2 gap-2 mb-3 py-2'>
                         <div>
                             <Image className='w-8 h-8 rounded-full' src={Story} alt='' />
@@ -142,7 +142,7 @@ const TimeLine = () => {
                 </div>
 
                 {/* Text */}
-                <div className='bg-white w-[750px] h-auto rounded-xl px-5 py-2'>
+                <div className='bg-white w-[760px] h-auto rounded-xl px-5 py-2'>
                     <div className='flex items-center border-b-2 gap-2 mb-3 py-2'>
                         <div>
                             <Image className='w-8 h-8 rounded-full' src={Story} alt='' />
@@ -242,7 +242,7 @@ const TimeLine = () => {
                 </div>
 
                 {/* post */}
-                <div className='bg-white w-[750px] h-auto rounded-xl px-5 py-2'>
+                <div className='bg-white w-[760px] h-auto rounded-xl px-5 py-2'>
                     <div className='flex items-center border-b-2 gap-2 mb-3 py-2'>
                         <div>
                             <Image className='w-8 h-8 rounded-full' src={Story} alt='' />
@@ -376,7 +376,7 @@ const TimeLine = () => {
                 </div>
 
                 {/* Image2 */}
-                <div className='bg-white w-[750px] h-auto rounded-xl px-5 py-2'>
+                <div className='bg-white w-[760px] h-auto rounded-xl px-5 py-2'>
                     <div className='flex items-center border-b-2 gap-2 mb-3 py-2'>
                         <div>
                             <Image className='w-8 h-8 rounded-full' src={Story} alt='' />
@@ -479,7 +479,7 @@ const TimeLine = () => {
                 </div>
 
                 {/* Audio */}
-                <div className='bg-white w-[750px] h-auto rounded-xl px-5 py-2'>
+                <div className='bg-white w-[760px] h-auto rounded-xl px-5 py-2'>
                     <div className='flex items-center border-b-2 gap-2 mb-3 py-2'>
                         <div>
                             <Image className='w-8 h-8 rounded-full' src={Story} alt='' />

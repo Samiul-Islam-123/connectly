@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Story,
   post,
@@ -20,12 +20,17 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
+import ImagePost from "./ImagePost";
+import DiffPost from "./DiffPost";
+import TextPost from "./TextPost";
+import Cookies from "js-cookie";
 
 const Post = () => {
   const [like, setLike] = useState(0);
   const [newCommentText, setNewCommentText] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [comments, setComments] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const handleLike = () => {
     setLike(like + 1);
@@ -49,11 +54,37 @@ const Post = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/post`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "x-auth-token": `${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        if (!response) {
+          throw new Error("Failed to fetch posts");
+        }
+        const data = await response.json();
+        setPosts(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+    fetchAllPosts();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-5 py-5">
         {/* Image */}
-        <div className="bg-white w-[700px] h-auto rounded-xl p-5">
+        <div className="bg-white shadow-lg w-[700px] h-auto rounded-xl p-5">
           <div className="head flex gap-3">
             <div>
               <Image className="w-14 h-14" src={post} alt="" />
